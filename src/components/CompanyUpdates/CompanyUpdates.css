@@ -1,0 +1,107 @@
+.companySection {
+  margin: 44px 0 10px;
+}
+
+.companyHead {
+  margin-bottom: 14px;
+}
+
+.sectionSub {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Scroll Wrapper */
+.companyScrollWrapper {
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+/* Scroll Track with flex */
+.companyScrollTrack {
+  display: flex;
+  gap: 18px;
+  animation: scrollLeftToRight 20s linear infinite;
+}
+
+/* Card styling */
+.companyCard {
+  min-width: 300px;
+  flex-shrink: 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.companyCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+}
+
+.companyThumb {
+  height: 160px;
+  background: #000;
+}
+
+.companyThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.companyBody {
+  padding: 12px;
+}
+
+.companyTitle {
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 900;
+  color: var(--text);
+  line-height: 1.35;
+}
+
+.companyDesc {
+  margin: 0 0 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.companyMeta {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--muted);
+}
+
+/* Scroll animation */
+@keyframes scrollLeftToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 900px) {
+  .companyCard {
+    min-width: 250px;
+  }
+}
+
+@media (max-width: 600px) {
+  .companyCard {
+    min-width: 200px;
+  }
+}

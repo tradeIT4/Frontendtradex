@@ -1,0 +1,232 @@
+/* =========================
+   AUTH (Sign In / Sign Up)
+   Bloomberg-style, mobile-first
+========================= */
+
+.authPage {
+  min-height: calc(100vh - 140px);
+  display: grid;
+  place-items: center;
+  padding: 28px 14px 40px;
+  background: radial-gradient(
+      1200px 600px at 20% 0%,
+      rgba(24, 178, 107, 0.10),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 90% 10%,
+      rgba(255, 255, 255, 0.06),
+      transparent 55%
+    );
+}
+
+/* Card */
+.authCard {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 22px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.22);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle top accent line */
+.authCard::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--accent), transparent);
+  opacity: 0.9;
+}
+
+.authTitle {
+  margin: 6px 0 6px;
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+.authSub {
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-weight: 600;
+  line-height: 1.35;
+  font-size: 13px;
+}
+
+/* Errors / notices */
+.authError {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(220, 38, 38, 0.30);
+  background: rgba(220, 38, 38, 0.12);
+  color: var(--text);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.authSuccess {
+  margin: 0 0 14px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(24, 178, 107, 0.30);
+  background: rgba(24, 178, 107, 0.12);
+  color: var(--text);
+  font-weight: 800;
+  font-size: 13px;
+}
+
+/* Form */
+.authForm {
+  display: grid;
+  gap: 14px;
+}
+
+.authForm label {
+  display: grid;
+  gap: 7px;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* Input wrapper (optional if you add icons later) */
+.authField {
+  position: relative;
+}
+
+.authForm input {
+  width: 100%;
+  padding: 12px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  font-size: 14px;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    background 0.15s ease;
+}
+
+/* Focus ring (Bloomberg-like) */
+.authForm input:focus {
+  border-color: rgba(24, 178, 107, 0.55);
+  box-shadow: 0 0 0 4px rgba(24, 178, 107, 0.12);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Placeholder */
+.authForm input::placeholder {
+  color: rgba(166, 176, 196, 0.8);
+}
+
+/* Password + helper row */
+.authRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: -4px;
+}
+
+.authSmallLink {
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.authSmallLink:hover {
+  text-decoration: underline;
+}
+
+/* Primary submit button */
+.authSubmit {
+  width: 100%;
+  margin-top: 6px;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 12px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.08s ease, filter 0.12s ease, opacity 0.12s ease;
+}
+
+.authSubmit:hover {
+  filter: brightness(1.02);
+}
+
+.authSubmit:active {
+  transform: translateY(1px);
+}
+
+.authSubmit:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Footer prompt */
+.authFooter {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.authFooter a {
+  color: var(--accent);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+.authFooter a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive spacing for tablets */
+@media (min-width: 768px) {
+  .authPage {
+    padding: 40px 18px 60px;
+  }
+
+  .authCard {
+    padding: 26px;
+    border-radius: 20px;
+  }
+
+  .authTitle {
+    font-size: 24px;
+  }
+}
+
+/* Light theme refinement (keeps it crisp) */
+:root[data-theme="light"] .authPage {
+  background: radial-gradient(
+      1200px 600px at 20% 0%,
+      rgba(24, 178, 107, 0.08),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 500px at 90% 10%,
+      rgba(16, 24, 40, 0.04),
+      transparent 55%
+    );
+}
+
+:root[data-theme="light"] .authCard {
+  box-shadow: 0 18px 50px rgba(16, 24, 40, 0.10);
+}
+
+:root[data-theme="light"] .authForm input {
+  background: #fff;
+}

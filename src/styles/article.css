@@ -1,0 +1,65 @@
+.articlePage {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 24px 16px 64px;
+  color: var(--text);
+}
+
+.articleBack {
+  background: none;
+  border: none;
+  color: var(--accent);
+  font-weight: 900;
+  font-size: 13px;
+  cursor: pointer;
+  margin-bottom: 14px;
+}
+
+.articleTitle {
+  font-size: 28px;
+  font-weight: 950;
+  line-height: 1.25;
+  margin: 0 0 10px;
+}
+
+.articleMeta {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+/* Fixed height hero for desktop and mobile */
+.articleHero {
+  width: 100%;
+  background: #000;
+  border-radius: 18px;
+  overflow: hidden;
+  margin-bottom: 26px;
+  max-height: 420px;
+}
+
+.articleHero img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.articleBody {
+  font-size: 16px;
+  line-height: 1.75;
+  color: var(--text);
+}
+
+.articleBody p {
+  margin: 0 0 18px;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .articleTitle { font-size: 22px; }
+  .articleHero { border-radius: 14px; max-height: 220px; }
+  .articleHero img { height: 220px; }
+  .articleBody { font-size: 15px; }
+}

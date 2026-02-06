@@ -1,0 +1,66 @@
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f2f4f7;
+  --card: #ffffff;
+  --text: #101828;
+  --muted: #667085;
+  --border: rgba(16, 24, 40, 0.12);
+  --hover: rgba(16, 24, 40, 0.06);
+
+  --accent: #1f5eff;       /* Bloomberg-ish blue */
+  --accent-soft: rgba(31, 94, 255, 0.12);
+}
+
+:root[data-theme="dark"] {
+  --bg: #0b0f17;
+  --surface: #0f1624;
+  --surface-2: #0b1220;
+  --card: #101a2b;
+  --text: #e6e9ef;
+  --muted: #a3acc2;
+  --border: rgba(230, 233, 239, 0.12);
+  --hover: rgba(230, 233, 239, 0.06);
+
+  --accent: #6aa6ff;
+  --accent-soft: rgba(106, 166, 255, 0.12);
+}
+
+/* Shared atoms */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.pill--soft {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* Simple button used on Article page */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 900;
+  text-decoration: none;
+}
+.btn:hover {
+  background: var(--hover);
+}
