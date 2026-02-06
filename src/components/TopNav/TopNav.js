@@ -134,7 +134,7 @@ export default function TopNav({
                 }`}
                 onClick={() => handleCategoryClick(cat)}
               >
-                {t(`categories.${cat}`)} {/* <- translation */}
+                {t(`${cat}`)} {/* <- translation */}
               </button>
             ))}
           </div>
