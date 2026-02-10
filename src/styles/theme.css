@@ -1,3 +1,4 @@
+/* ===== Default (Light) Theme ===== */
 :root {
   --bg: #f6f7f9;
   --surface: #ffffff;
@@ -12,6 +13,7 @@
   --accent-soft: rgba(31, 94, 255, 0.12);
 }
 
+/* ===== Dark Theme (Opt-in) ===== */
 :root[data-theme="dark"] {
   --bg: #0b0f17;
   --surface: #0f1624;
@@ -26,7 +28,7 @@
   --accent-soft: rgba(106, 166, 255, 0.12);
 }
 
-/* Shared atoms */
+/* ===== Shared atoms ===== */
 .pill {
   display: inline-flex;
   align-items: center;
@@ -48,7 +50,7 @@
   color: var(--muted);
 }
 
-/* Simple button used on Article page */
+/* ===== Button ===== */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -61,6 +63,7 @@
   font-weight: 900;
   text-decoration: none;
 }
+
 .btn:hover {
   background: var(--hover);
 }

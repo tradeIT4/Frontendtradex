@@ -1,17 +1,15 @@
-const KEY = "tradex_auth";
+// src/services/auth.js
+const KEY = "auth";
 
-export function saveAuth(payload) {
-  localStorage.setItem(KEY, JSON.stringify(payload));
-}
+export const saveAuth = (data) => {
+  localStorage.setItem(KEY, JSON.stringify(data));
+};
 
-export function readAuth() {
-  try {
-    return JSON.parse(localStorage.getItem(KEY));
-  } catch {
-    return null;
-  }
-}
+export const readAuth = () => {
+  const raw = localStorage.getItem(KEY);
+  return raw ? JSON.parse(raw) : null;
+};
 
-export function logout() {
+export const logout = () => {
   localStorage.removeItem(KEY);
-}
+};

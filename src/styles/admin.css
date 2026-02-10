@@ -1,0 +1,383 @@
+/* ================= THEME TOKENS ================= */
+
+:root {
+  --bg: #0b0f17;
+  --card: #0f1522;
+  --text: #eef2ff;
+  --muted: #a6b0c4;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #18b26b;
+  --danger: #dc2626;
+}
+
+:root[data-theme="light"] {
+  --bg: #f7f8fb;
+  --card: #ffffff;
+  --text: #101828;
+  --muted: #667085;
+  --border: rgba(16, 24, 40, 0.12);
+  --accent: #18b26b;
+  --danger: #dc2626;
+}
+
+/* ================= BASE ================= */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Inter, system-ui, sans-serif;
+}
+
+/* ================= ADMIN LOGIN ================= */
+
+.adminAuthPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at top, rgba(24, 178, 107, 0.18), transparent 60%),
+    var(--bg);
+}
+
+.adminAuthCard {
+  width: 100%;
+  max-width: 380px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 32px;
+  text-align: center;
+}
+
+.adminAuthCard h1 {
+  font-size: 26px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.adminAuthCard p {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+/* ❌ ERROR MESSAGE */
+.adminError {
+  background: rgba(220, 38, 38, 0.15);
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  color: #ffb4b4;
+  padding: 10px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 14px;
+}
+
+/* Inputs */
+.adminAuthCard input {
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 12px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  font-size: 14px;
+}
+
+.adminAuthCard input::placeholder {
+  color: var(--muted);
+}
+
+.adminAuthCard input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+/* 🔐 LOGIN BUTTON */
+.adminAuthCard button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 6px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, var(--accent), #0ea35c);
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.adminAuthCard button:hover:not(:disabled) {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+/* ⏳ LOADING / DISABLED */
+.adminAuthCard button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================= ADMIN LAYOUT ================= */
+
+.adminLayout {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+}
+
+.adminMain {
+  padding: 20px 24px 32px;
+}
+
+/* ================= SIDEBAR ================= */
+
+.adminSidebar {
+  background: var(--card);
+  border-right: 1px solid var(--border);
+  padding: 20px 16px;
+}
+
+.adminSidebar h2 {
+  font-weight: 900;
+  margin-bottom: 22px;
+}
+
+.adminSidebar nav {
+  display: grid;
+  gap: 8px;
+}
+
+.adminSidebar a {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  text-decoration: none;
+  color: var(--text);
+}
+
+.adminSidebar a.active,
+.adminSidebar a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ================= TOP BAR ================= */
+
+.adminTopBar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 18px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  margin-bottom: 20px;
+}
+
+.adminTopActions {
+  display: flex;
+  gap: 10px;
+}
+
+.themeToggle {
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+/* 🔴 LOGOUT BUTTON */
+.adminLogoutBtn {
+  border: 1px solid rgba(220, 38, 38, 0.5);
+  background: rgba(220, 38, 38, 0.12);
+  color: #ffb4b4;
+  padding: 6px 14px;
+  border-radius: 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.adminLogoutBtn:hover {
+  background: rgba(220, 38, 38, 0.25);
+  color: #fff;
+}
+
+/* ================= STATS ================= */
+
+.adminStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 18px;
+}
+
+.statCard h3 {
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.statCard strong {
+  font-size: 30px;
+  font-weight: 900;
+}
+
+/* ================= TABLE ================= */
+
+.adminTable {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.adminTable h2 {
+  margin-bottom: 12px;
+}
+
+.adminTable table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.adminTable th,
+.adminTable td {
+  padding: 12px 10px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+/* ================= APPROVE BUTTON ================= */
+
+.adminApproveBtn {
+  padding: 6px 12px;
+  border-radius: 10px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.adminApproveBtn:hover {
+  filter: brightness(1.1);
+}
+.adminApproveBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.adminRejectBtn {
+  background: rgba(220, 38, 38, 0.15);
+  color: #ffb4b4;
+  border: 1px solid rgba(220, 38, 38, 0.4);
+  padding: 6px 12px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+}
+.adminSidebar button {
+  all: unset;
+  cursor: pointer;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+.adminSidebar button:hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.adminSidebar button.active {
+  background: var(--accent);
+  color: #fff;
+}
+/* ================= DASHBOARD STATS ================= */
+
+.adminStats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.statCard {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 20px;
+  text-align: center;
+}
+
+.statCard h4 {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+
+.statCard strong {
+  font-size: 32px;
+  color: var(--text);
+}
+
+.statCard.pending strong {
+  color: #facc15;
+}
+
+.statCard.approved strong {
+  color: #22c55e;
+}
+
+.statCard.rejected strong {
+  color: #ef4444;
+}
+
+.adminWelcome {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 24px;
+}
+
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+  .adminLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .adminSidebar {
+    display: none;
+  }
+
+  .adminMain {
+    padding: 16px;
+  }
+}

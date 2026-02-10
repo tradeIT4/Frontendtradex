@@ -1,8 +1,10 @@
+/* ================= FOOTER ================= */
+
 .footer {
-  background-color: #000; /* Black background */
+  background-color: #000;
   color: #fff;
-  padding: 60px 20px; /* Increased height */
-  font-family: "Arial", sans-serif;
+  padding: 24px 16px; /* compact height */
+  font-family: Arial, sans-serif;
 }
 
 .footerInner {
@@ -10,36 +12,39 @@
   margin: 0 auto;
 }
 
-/* Top Section Layout */
+/* ================= TOP SECTION ================= */
+
 .footerTop {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin-bottom: 40px; /* More space before bottom */
   align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
 }
 
-/* Contact Info */
+/* ================= CONTACT ================= */
+
 .footerContact {
-  flex: 1 1 250px;
+  flex: 1 1 200px;
 }
 
 .footerContact h4 {
-  margin-bottom: 15px;
-  font-size: 16px;
-  color: #ffd700; /* Gold heading */
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffd700;
 }
 
 .footerContact p {
-  margin: 8px 0;
-  font-size: 14px;
+  margin: 4px 0;
+  font-size: 12px;
+  line-height: 1.4;
 }
 
 .footerContact a {
   color: #fff;
   text-decoration: none;
-  transition: color 0.3s;
 }
 
 .footerContact a:hover {
@@ -47,56 +52,58 @@
   text-decoration: underline;
 }
 
-/* Social Media */
+/* ================= SOCIAL ================= */
+
 .footerSocial {
-  flex: 1 1 250px;
-  display: flex;
-  flex-direction: column;
+  flex: 1 1 200px;
 }
 
 .footerSocial h4 {
-  margin-bottom: 15px;
-  font-size: 16px;
+  margin: 0 0 6px;
+  font-size: 14px;
+  font-weight: 700;
   color: #ffd700;
 }
 
 .socialIcons {
   display: flex;
-  gap: 20px; /* More spacing */
+  gap: 12px;
 }
 
 .socialIcons a {
   color: #fff;
-  font-size: 24px; /* Slightly bigger icons */
-  transition: all 0.3s;
+  font-size: 18px;
+  transition: color 0.2s ease, transform 0.2s ease;
 }
 
 .socialIcons a:hover {
   color: #ffd700;
-  transform: scale(1.2);
+  transform: scale(1.1);
 }
 
-/* Bottom Section */
+/* ================= BOTTOM ================= */
+
 .footerBottom {
   text-align: center;
-  border-top: 1px solid #333;
-  padding-top: 25px;
-  padding-bottom: 20px;
-  font-size: 12px;
+  border-top: 1px solid #222;
+  margin-top: 10px;
+  padding-top: 10px;
+  font-size: 11px;
   color: #aaa;
 }
 
-/* Responsive for Mobile */
+/* ================= MOBILE ================= */
+
 @media (max-width: 768px) {
   .footer {
-    padding: 50px 15px; /* Still tall on mobile */
+    padding: 20px 14px;
   }
 
   .footerTop {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    margin-bottom: 30px;
+    gap: 12px;
   }
 
   .socialIcons {

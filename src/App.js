@@ -2,12 +2,27 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import "./styles/layout.css";
 
+/* ================= PUBLIC ================= */
 import HomePage from "./pages/HomePage";
 import ArticlePage from "./pages/ArticlePage";
 import CompanyPostPage from "./pages/CompanyPostPage";
 import VideoPage from "./pages/VideoPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
+import SubscribePage from "./pages/SubscribePage";
+
+/* ================= SUBSCRIBER ================= */
+import SubscriberLoginPage from "./pages/SubscriberLoginPage";
+import SubscriberPendingPage from "./pages/SubscriberPendingPage";
+import SubscriberDashboard from "./pages/SubscriberDashboard";
+import SubscriberRoute from "./components/SubscriberRoute";
+
+/* ================= ADMIN ================= */
+import AdminLoginPage from "./pages/AdminLoginPage";
+import AdminLayout from "./pages/AdminLayout";
+import AdminDashboardHome from "./pages/AdminDashboardHome";
+import AdminSubscribersPage from "./pages/AdminSubscribersPage";
+import AdminRoute from "./components/Admin/AdminRoute";
 
 export default function App() {
   const [theme, setTheme] = useState(
@@ -32,12 +47,44 @@ export default function App() {
 
   return (
     <Routes>
+      {/* ================= PUBLIC ================= */}
       <Route path="/" element={<HomePage themeApi={themeApi} />} />
       <Route path="/article/:id" element={<ArticlePage />} />
       <Route path="/company/:id" element={<CompanyPostPage />} />
       <Route path="/video/:id" element={<VideoPage />} />
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
+      <Route path="/subscribe" element={<SubscribePage />} />
+
+      {/* ================= SUBSCRIBER ================= */}
+      <Route path="/subscriber/login" element={<SubscriberLoginPage />} />
+      <Route path="/subscriber/pending" element={<SubscriberPendingPage />} />
+
+      <Route
+        path="/subscriber/dashboard"
+        element={
+          <SubscriberRoute>
+            <SubscriberDashboard />
+          </SubscriberRoute>
+        }
+      />
+
+      {/* ================= ADMIN ================= */}
+      <Route path="/admin/login" element={<AdminLoginPage />} />
+
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminLayout />
+          </AdminRoute>
+        }
+      >
+        <Route index element={<AdminDashboardHome />} />
+        <Route path="subscribers" element={<AdminSubscribersPage />} />
+      </Route>
+
+      {/* ================= FALLBACK ================= */}
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );

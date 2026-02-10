@@ -3,7 +3,7 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: var(--surface);
+  background: var(--card); /* FIXED */
   border-bottom: 1px solid var(--border);
 }
 
@@ -21,7 +21,7 @@
 }
 
 .topNav__row--bottom {
-  background: var(--surface-2);
+  background: var(--card); /* FIXED */
   border-top: 1px solid var(--border);
 }
 
@@ -78,11 +78,12 @@
 }
 
 .linkBtn {
-  background: transparent;
-  border: none;
+  background: var(--card);
+  border: 1px solid var(--border);
   color: var(--text);
   font-weight: 700;
   padding: 8px 10px;
+  border-radius: 12px;
 }
 
 .primaryBtn,
@@ -112,11 +113,12 @@
 }
 
 .hamburger {
-  background: transparent;
-  border: none;
+  background: var(--card);
+  border: 1px solid var(--border);
   font-size: 22px;
-  cursor: pointer;
   color: var(--text);
+  border-radius: 12px;
+  padding: 6px 10px;
 }
 
 /* ================= AUTH NAV ================= */
@@ -133,7 +135,7 @@
   right: 16px;
   top: 52px;
   padding: 12px;
-  border-radius: 8px;
+  border-radius: 12px;
   border: 1px solid var(--border);
 }
 
@@ -147,8 +149,8 @@
 
 .categories button,
 .catItem {
-  background: none;
-  border: none;
+  background: var(--card); /* FIXED */
+  border: 1px solid var(--border);
   font-weight: 700;
   padding: 8px 10px;
   border-radius: 12px;
@@ -180,7 +182,7 @@
 
 /* ================= MOBILE MENU ================= */
 .mobileMenu {
-  background: var(--surface);
+  background: var(--card); /* FIXED */
   border-top: 1px solid var(--border);
   animation: slideDown 0.25s ease;
 }
@@ -194,11 +196,12 @@
   display: block;
   width: 100%;
   text-align: left;
-  padding: 10px 0;
-  border: none;
-  background: transparent;
+  padding: 10px;
+  border: 1px solid var(--border);
+  background: var(--card);
   font-weight: 700;
   color: var(--text);
+  border-radius: 10px;
 }
 
 .mobileCat.active {
@@ -221,6 +224,48 @@
   background: var(--accent);
   color: #fff;
   border: none;
+}
+
+/* ================= LANGUAGE ================= */
+.langWrap {
+  position: relative;
+}
+
+.langBtn {
+  background: var(--card);
+  border: 1px solid var(--border);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-weight: 800;
+  cursor: pointer;
+  color: var(--text);
+}
+
+.langMenu {
+  position: absolute;
+  right: 0;
+  top: 40px;
+  background: var(--card); /* FIXED */
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  z-index: 300;
+  min-width: 140px;
+}
+
+.langMenu button {
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: var(--card);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.langMenu button:hover {
+  background: var(--hover);
 }
 
 /* ================= ANIMATION ================= */
@@ -257,44 +302,4 @@
   .topNav__row--bottom {
     display: none;
   }
-}
-.langWrap {
-  position: relative;
-}
-
-.langBtn {
-  background: var(--card);
-  border: 1px solid var(--border);
-  padding: 6px 10px;
-  border-radius: 10px;
-  font-weight: 800;
-  cursor: pointer;
-  color: var(--text);
-}
-
-.langMenu {
-  position: absolute;
-  right: 0;
-  top: 40px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  z-index: 300;
-  min-width: 140px;
-}
-
-.langMenu button {
-  width: 100%;
-  padding: 10px 12px;
-  border: none;
-  background: transparent;
-  color: var(--text);
-  text-align: left;
-  cursor: pointer;
-  font-weight: 800;
-}
-
-.langMenu button:hover {
-  background: var(--hover);
 }

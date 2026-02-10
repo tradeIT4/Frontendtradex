@@ -1,0 +1,95 @@
+/* =====================================================
+   SUBSCRIBER AUTH UI (DARK / LIGHT)
+===================================================== */
+
+.subscriberPage {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background:
+    radial-gradient(800px 380px at 10% 0%, rgba(24, 178, 107, 0.18), transparent 60%),
+    radial-gradient(600px 300px at 90% 10%, rgba(255, 255, 255, 0.05), transparent 55%);
+}
+
+/* CARD */
+.subscriberCard {
+  width: 100%;
+  max-width: 420px;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.subscriberCard h1 {
+  font-size: 24px;
+  font-weight: 900;
+  margin-bottom: 6px;
+}
+
+.subscriberCard p {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+/* INPUTS */
+.subscriberCard input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text);
+  font-weight: 700;
+}
+
+.subscriberCard input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(24, 178, 107, 0.15);
+}
+
+/* BUTTON */
+.subscriberCard button {
+  width: 100%;
+  padding: 12px;
+  border-radius: 14px;
+  border: none;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 900;
+  cursor: pointer;
+  margin-top: 6px;
+}
+
+.subscriberCard button:hover {
+  filter: brightness(1.05);
+}
+
+/* LINK */
+.formHint {
+  display: block;
+  margin-top: 16px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.formHint a {
+  color: var(--accent);
+  font-weight: 900;
+  text-decoration: none;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .subscriberCard {
+    padding: 22px;
+  }
+}
