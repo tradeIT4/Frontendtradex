@@ -48,7 +48,7 @@ export const tvVideos = [
     host: "Miki Tesfaye",
     description:
       "This episode breaks down liquidity conditions, rate expectations, and sector rotation signals. We cover the key drivers behind the week’s volatility and what to watch next.",
-    videoUrl: "https://www.youtube.com/watch?v=abcd1234",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
     
   },
   {
@@ -62,7 +62,7 @@ export const tvVideos = [
     host: "Miki Tesfaye",
     description:
       "This episode breaks down liquidity conditions, rate expectations, and sector rotation signals. We cover the key drivers behind the week’s volatility and what to watch next.",
-    videoUrl: "https://www.youtube.com/watch?v=abcd1234",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
     
   },
   {
@@ -76,7 +76,7 @@ export const tvVideos = [
     host: "Miki Tesfaye",
     description:
       "This episode breaks down liquidity conditions, rate expectations, and sector rotation signals. We cover the key drivers behind the week’s volatility and what to watch next.",
-    videoUrl: "https://www.youtube.com/watch?v=abcd1234",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
     
   },
   {
@@ -90,7 +90,7 @@ export const tvVideos = [
     host: "Hanna Girma",
     description:
       "A fast, premium briefing on today’s business news — policy headlines, trade corridors, corporate earnings, and macro signals.",
-    videoUrl: "https://www.youtube.com/watch?v=efgh5678",
+    videoUrl:"https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv201",
@@ -103,7 +103,7 @@ export const tvVideos = [
     host: "Hanna Girma",
     description:
       "A fast, premium briefing on today’s business news — policy headlines, trade corridors, corporate earnings, and macro signals.",
-    videoUrl: "https://www.youtube.com/watch?v=efgh5678",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv203",
@@ -116,7 +116,7 @@ export const tvVideos = [
     host: "Hanna Girma",
     description:
       "A fast, premium briefing on today’s business news — policy headlines, trade corridors, corporate earnings, and macro signals.",
-    videoUrl: "https://www.youtube.com/watch?v=efgh5678",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv3",
@@ -129,7 +129,7 @@ export const tvVideos = [
     host: "Samuel Bekele",
     description:
       "How to structure live selling segments, handle objections, and close using trust-based scripts. Includes show timing blueprint and CTA blocks.",
-    videoUrl: "https://www.youtube.com/watch?v=ijkl9012",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv130",
@@ -142,7 +142,7 @@ export const tvVideos = [
     host: "Samuel Bekele",
     description:
       "How to structure live selling segments, handle objections, and close using trust-based scripts. Includes show timing blueprint and CTA blocks.",
-    videoUrl: "https://www.youtube.com/watch?v=ijkl9012",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv140",
@@ -155,7 +155,7 @@ export const tvVideos = [
     host: "Samuel Bekele",
     description:
       "How to structure live selling segments, handle objections, and close using trust-based scripts. Includes show timing blueprint and CTA blocks.",
-    videoUrl: "https://www.youtube.com/watch?v=ijkl9012",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
      {
     id: "tv142",
@@ -168,7 +168,7 @@ export const tvVideos = [
     host: "Samuel Bekele",
     description:
       "How to structure live selling segments, handle objections, and close using trust-based scripts. Includes show timing blueprint and CTA blocks.",
-    videoUrl: "https://www.youtube.com/watch?v=ijkl9012",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv4",
@@ -181,7 +181,7 @@ export const tvVideos = [
     host: "አቤል ደረጀ",
     description:
       "የሳምንቱ የገበያ እንቅስቃሴ ማጠቃለያ፣ የእቃ ዋጋ መለዋወጥ እና ትራንስፖርት ጫና ተፅእኖ በጥልቀት ተመልከት።",
-    videoUrl: "https://www.youtube.com/watch?v=mnop3456",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv15",
@@ -194,7 +194,7 @@ export const tvVideos = [
     host: "አቤል ደረጀ",
     description:
       "የሳምንቱ የገበያ እንቅስቃሴ ማጠቃለያ፣ የእቃ ዋጋ መለዋወጥ እና ትራንስፖርት ጫና ተፅእኖ በጥልቀት ተመልከት።",
-    videoUrl: "https://www.youtube.com/watch?v=mnop3456",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
     {
     id: "tv16",
@@ -207,7 +207,7 @@ export const tvVideos = [
     host: "አቤል ደረጀ",
     description:
       "የሳምንቱ የገበያ እንቅስቃሴ ማጠቃለያ፣ የእቃ ዋጋ መለዋወጥ እና ትራንስፖርት ጫና ተፅእኖ በጥልቀት ተመልከት።",
-    videoUrl: "https://www.youtube.com/watch?v=mnop3456",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv5",
@@ -220,7 +220,7 @@ export const tvVideos = [
     host: "Abel Tsegaye",
     description:
       "A practical pricing playbook: segmentation, value framing, bundling, and negotiation anchors. Includes a template you can reuse for your team.",
-    videoUrl: "https://www.youtube.com/watch?v=qrst7890",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv303",
@@ -233,7 +233,7 @@ export const tvVideos = [
     host: "Abel Tsegaye",
     description:
       "A practical pricing playbook: segmentation, value framing, bundling, and negotiation anchors. Includes a template you can reuse for your team.",
-    videoUrl: "https://www.youtube.com/watch?v=qrst7890",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv301",
@@ -246,7 +246,7 @@ export const tvVideos = [
     host: "Abel Tsegaye",
     description:
       "A practical pricing playbook: segmentation, value framing, bundling, and negotiation anchors. Includes a template you can reuse for your team.",
-    videoUrl: "https://www.youtube.com/watch?v=qrst7890",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
     {
     id: "tv300",
@@ -259,7 +259,7 @@ export const tvVideos = [
     host: "Abel Tsegaye",
     description:
       "A practical pricing playbook: segmentation, value framing, bundling, and negotiation anchors. Includes a template you can reuse for your team.",
-    videoUrl: "https://www.youtube.com/watch?v=qrst7890",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv6",
@@ -272,7 +272,7 @@ export const tvVideos = [
     host: "ሀና ግርማ",
     description:
       "የምርት ሂደት ከእቃ ማዘጋጀት እስከ ደንበኛ ድረስ እንዴት እንደሚሄድ በግልፅ ቪዲዮ ማብራሪያ።",
-    videoUrl: "https://www.youtube.com/watch?v=uvwx1122",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv19",
@@ -285,7 +285,7 @@ export const tvVideos = [
     host: "ሀና ግርማ",
     description:
       "የምርት ሂደት ከእቃ ማዘጋጀት እስከ ደንበኛ ድረስ እንዴት እንደሚሄድ በግልፅ ቪዲዮ ማብራሪያ።",
-    videoUrl: "https://www.youtube.com/watch?v=uvwx1122",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv20",
@@ -298,7 +298,7 @@ export const tvVideos = [
     host: "ሀና ግርማ",
     description:
       "የምርት ሂደት ከእቃ ማዘጋጀት እስከ ደንበኛ ድረስ እንዴት እንደሚሄድ በግልፅ ቪዲዮ ማብራሪያ።",
-    videoUrl: "https://www.youtube.com/watch?v=uvwx1122",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv7",
@@ -311,7 +311,7 @@ export const tvVideos = [
     host: "Natnael Wondesen",
     description:
       "A clean breakdown of market instruments, risk profiles, and how regulation impacts liquidity and investor confidence.",
-    videoUrl: "https://www.youtube.com/watch?v=zzzz7788",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv21",
@@ -324,7 +324,7 @@ export const tvVideos = [
     host: "Natnael Wondesen",
     description:
       "A clean breakdown of market instruments, risk profiles, and how regulation impacts liquidity and investor confidence.",
-    videoUrl: "https://www.youtube.com/watch?v=zzzz7788",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv23",
@@ -337,7 +337,7 @@ export const tvVideos = [
     host: "Natnael Wondesen",
     description:
       "A clean breakdown of market instruments, risk profiles, and how regulation impacts liquidity and investor confidence.",
-    videoUrl: "https://www.youtube.com/watch?v=zzzz7788",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv24",
@@ -350,7 +350,7 @@ export const tvVideos = [
     host: "Natnael Wondesen",
     description:
       "A clean breakdown of market instruments, risk profiles, and how regulation impacts liquidity and investor confidence.",
-    videoUrl: "https://www.youtube.com/watch?v=zzzz7788",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv25",
@@ -363,7 +363,7 @@ export const tvVideos = [
     host: "Natnael Wondesen",
     description:
       "A clean breakdown of market instruments, risk profiles, and how regulation impacts liquidity and investor confidence.",
-    videoUrl: "https://www.youtube.com/watch?v=zzzz7788",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv8",
@@ -376,7 +376,7 @@ export const tvVideos = [
     host: "Sara Mekonnen",
     description:
       "We unpack exchange-rate narratives, trade settlement timelines, and what businesses should track in the next quarter.",
-    videoUrl: "https://www.youtube.com/watch?v=aaaa9999",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv26",
@@ -389,7 +389,7 @@ export const tvVideos = [
     host: "Sara Mekonnen",
     description:
       "We unpack exchange-rate narratives, trade settlement timelines, and what businesses should track in the next quarter.",
-    videoUrl: "https://www.youtube.com/watch?v=aaaa9999",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv27",
@@ -402,7 +402,7 @@ export const tvVideos = [
     host: "Sara Mekonnen",
     description:
       "We unpack exchange-rate narratives, trade settlement timelines, and what businesses should track in the next quarter.",
-    videoUrl: "https://www.youtube.com/watch?v=aaaa9999",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv9",
@@ -415,7 +415,7 @@ export const tvVideos = [
     host: "Bereket Alemu",
     description:
       "A premium look at demand zones, cost breakdowns, and how developers can maintain quality under price pressure.",
-    videoUrl: "https://www.youtube.com/watch?v=bbbb0000",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv28",
@@ -428,7 +428,7 @@ export const tvVideos = [
     host: "Bereket Alemu",
     description:
       "A premium look at demand zones, cost breakdowns, and how developers can maintain quality under price pressure.",
-    videoUrl: "https://www.youtube.com/watch?v=bbbb0000",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv30",
@@ -441,7 +441,7 @@ export const tvVideos = [
     host: "Bereket Alemu",
     description:
       "A premium look at demand zones, cost breakdowns, and how developers can maintain quality under price pressure.",
-    videoUrl: "https://www.youtube.com/watch?v=bbbb0000",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv10",
@@ -454,7 +454,7 @@ export const tvVideos = [
     host: "Dr. Lidia Assefa",
     description:
       "How to structure diaspora investments, reduce risk with governance, and build trusted local partnerships.",
-    videoUrl: "https://www.youtube.com/watch?v=cccc1111",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv31",
@@ -467,7 +467,7 @@ export const tvVideos = [
     host: "Dr. Lidia Assefa",
     description:
       "How to structure diaspora investments, reduce risk with governance, and build trusted local partnerships.",
-    videoUrl: "https://www.youtube.com/watch?v=cccc1111",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv32",
@@ -480,7 +480,7 @@ export const tvVideos = [
     host: "Dr. Lidia Assefa",
     description:
       "How to structure diaspora investments, reduce risk with governance, and build trusted local partnerships.",
-    videoUrl: "https://www.youtube.com/watch?v=cccc1111",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv11",
@@ -493,7 +493,7 @@ export const tvVideos = [
     host: "Amanuel Andemo",
     description:
       "Traceability systems, supplier qualification, and quality assurance patterns for export-grade agriculture.",
-    videoUrl: "https://www.youtube.com/watch?v=dddd2222",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv33",
@@ -506,7 +506,7 @@ export const tvVideos = [
     host: "Amanuel Andemo",
     description:
       "Traceability systems, supplier qualification, and quality assurance patterns for export-grade agriculture.",
-    videoUrl: "https://www.youtube.com/watch?v=dddd2222",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
    {
     id: "tv34",
@@ -519,7 +519,7 @@ export const tvVideos = [
     host: "Amanuel Andemo",
     description:
       "Traceability systems, supplier qualification, and quality assurance patterns for export-grade agriculture.",
-    videoUrl: "https://www.youtube.com/watch?v=dddd2222",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv12",
@@ -532,7 +532,7 @@ export const tvVideos = [
     host: "Meron Tadesse",
     description:
       "A structured weekly operating rhythm: KPIs, meetings, execution cadence, and accountability systems.",
-    videoUrl: "https://www.youtube.com/watch?v=eeee3333",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv172",
@@ -545,7 +545,7 @@ export const tvVideos = [
     host: "Meron Tadesse",
     description:
       "A structured weekly operating rhythm: KPIs, meetings, execution cadence, and accountability systems.",
-    videoUrl: "https://www.youtube.com/watch?v=eeee3333",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
   {
     id: "tv173",
@@ -558,7 +558,7 @@ export const tvVideos = [
     host: "Meron Tadesse",
     description:
       "A structured weekly operating rhythm: KPIs, meetings, execution cadence, and accountability systems.",
-    videoUrl: "https://www.youtube.com/watch?v=eeee3333",
+    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
   },
 ];
 
