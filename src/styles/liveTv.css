@@ -1,0 +1,148 @@
+:root {
+  --live-bg: #070b12;
+  --live-card: #0d1320;
+  --live-text: #eef2ff;
+  --live-muted: #a6b0c4;
+  --live-border: rgba(255,255,255,.10);
+  --live-accent: #ff2d2d;
+}
+
+.livePage {
+  min-height: 100vh;
+  background: var(--live-bg);
+  color: var(--live-text);
+  padding: 20px;
+}
+
+.liveTop {
+  max-width: 1400px;
+  margin: 0 auto 20px;
+}
+
+.liveBack {
+  text-decoration: none;
+  color: var(--live-muted);
+  font-weight: 700;
+}
+
+.liveHero {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.livePlayerWrapper {
+  position: relative;
+}
+
+.liveBadge {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background: var(--live-accent);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.liveDot {
+  width: 10px;
+  height: 10px;
+  background: white;
+  border-radius: 50%;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0% { opacity: 1 }
+  50% { opacity: 0.3 }
+  100% { opacity: 1 }
+}
+
+.livePlayer {
+  height: 420px;
+  background: #000;
+  border-radius: 20px;
+  border: 1px solid var(--live-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.livePlayerOverlay {
+  text-align: center;
+}
+
+.livePlayIcon {
+  font-size: 60px;
+  margin-bottom: 10px;
+}
+
+.liveText {
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.liveSubText {
+  color: var(--live-muted);
+}
+
+.liveInfo {
+  margin-top: 20px;
+}
+
+.liveMeta {
+  display: flex;
+  gap: 20px;
+  margin-top: 10px;
+  color: var(--live-muted);
+}
+
+.liveSchedule {
+  max-width: 1400px;
+  margin: 40px auto 0;
+}
+
+.scheduleGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.scheduleCard {
+  background: var(--live-card);
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid var(--live-border);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.scheduleCard.active {
+  border-color: var(--live-accent);
+}
+
+.time {
+  font-weight: 800;
+  color: var(--live-accent);
+}
+
+.liveFooter {
+  margin-top: 50px;
+  text-align: center;
+  color: var(--live-muted);
+}
+
+@media (max-width: 768px) {
+  .livePlayer {
+    height: 250px;
+  }
+
+  .liveMeta {
+    flex-direction: column;
+  }
+}

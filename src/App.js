@@ -10,6 +10,10 @@ import VideoPage from "./pages/VideoPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import SubscribePage from "./pages/SubscribePage";
+import ProgramsTVPage from "./pages/ProgramsTVPage";
+import VideoPlayerPage from "./pages/VideoPlayerPage";
+import LiveTVPage from "./pages/LiveTVPage";
+import AboutPage from "./pages/AboutPage";
 
 /* ================= SUBSCRIBER ================= */
 import SubscriberLoginPage from "./pages/SubscriberLoginPage";
@@ -22,7 +26,9 @@ import AdminLoginPage from "./pages/AdminLoginPage";
 import AdminLayout from "./pages/AdminLayout";
 import AdminDashboardHome from "./pages/AdminDashboardHome";
 import AdminSubscribersPage from "./pages/AdminSubscribersPage";
+import AdminContentPage from "./components/Admin/AdminContentPage"; // ✅ NEW
 import AdminRoute from "./components/Admin/AdminRoute";
+
 
 export default function App() {
   const [theme, setTheme] = useState(
@@ -55,10 +61,19 @@ export default function App() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/subscribe" element={<SubscribePage />} />
+      <Route path="/programs-tv" element={<ProgramsTVPage />} />
+      <Route path="/programs-tv/watch/:id" element={<VideoPlayerPage />} />
+      <Route path="/live" element={<LiveTVPage />} />
+      <Route path="/about" element={<AboutPage />} />
 
       {/* ================= SUBSCRIBER ================= */}
       <Route path="/subscriber/login" element={<SubscriberLoginPage />} />
       <Route path="/subscriber/pending" element={<SubscriberPendingPage />} />
+      <Route path="/article/:id" element={<ArticlePage />} />
+     \
+      <Route path="/video/:id" element={<VideoPage />} />
+
+
 
       <Route
         path="/subscriber/dashboard"
@@ -82,6 +97,7 @@ export default function App() {
       >
         <Route index element={<AdminDashboardHome />} />
         <Route path="subscribers" element={<AdminSubscribersPage />} />
+        <Route path="content" element={<AdminContentPage />} /> {/* ✅ NEW */}
       </Route>
 
       {/* ================= FALLBACK ================= */}

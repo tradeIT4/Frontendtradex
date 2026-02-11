@@ -30,6 +30,10 @@ export default function AdminSidebar() {
         <NavLink to="/admin/users">
           Admin Users
         </NavLink>
+        <NavLink to="/admin/content">
+        Content Manager
+        </NavLink>
+
       </nav>
     </aside>
   );

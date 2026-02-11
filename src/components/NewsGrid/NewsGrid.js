@@ -9,9 +9,17 @@ export default function NewsGrid({ items = [], sectionTitle }) {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
 
-  const totalPages = Math.ceil(items.length / ITEMS_PER_PAGE);
+  // Ensure items is always an array
+  const safeItems = Array.isArray(items) ? items : [];
+
+  const totalPages = Math.ceil(safeItems.length / ITEMS_PER_PAGE);
   const start = page * ITEMS_PER_PAGE;
-  const visibleItems = items.slice(start, start + ITEMS_PER_PAGE);
+  const visibleItems = safeItems.slice(start, start + ITEMS_PER_PAGE);
+
+  const goToArticle = (id) => {
+    if (!id) return console.error("Missing _id");
+    navigate(`/article/${id}`);
+  };
 
   return (
     <section className="newsSection">
@@ -28,7 +36,9 @@ export default function NewsGrid({ items = [], sectionTitle }) {
             </button>
 
             <button
-              onClick={() => setPage((p) => Math.min(p + 1, totalPages - 1))}
+              onClick={() =>
+                setPage((p) => Math.min(p + 1, totalPages - 1))
+              }
               disabled={page === totalPages - 1}
             >
               <FaChevronRight />
@@ -38,20 +48,31 @@ export default function NewsGrid({ items = [], sectionTitle }) {
       </div>
 
       <div className="newsGrid">
-        {visibleItems.map((n) => (
-          <article
-            key={n.id}
-            className="newsCard"
-            onClick={() => navigate(`/article/${n.id}`)}
-          >
-            <img src={n.image} alt={n.title} />
-            <div className="newsBody">
-              <span className="newsCategory">{n.category}</span>
-              <h3>{n.title}</h3>
-              <p>{n.description}</p>
-            </div>
-          </article>
-        ))}
+        {visibleItems.length === 0 ? (
+          <p style={{ padding: "20px" }}>No articles available.</p>
+        ) : (
+          visibleItems.map((n) => (
+            <article
+              key={n._id} // ✅ MongoDB key
+              className="newsCard"
+              onClick={() => goToArticle(n._id)} // ✅ MongoDB navigation
+              style={{ cursor: "pointer" }}
+            >
+              <img
+                src={n.image || "/placeholder.jpg"}
+                alt={n.title || "News"}
+              />
+
+              <div className="newsBody">
+                <span className="newsCategory">
+                  {n.category || "General"}
+                </span>
+                <h3>{n.title}</h3>
+                <p>{n.description}</p>
+              </div>
+            </article>
+          ))
+        )}
       </div>
     </section>
   );

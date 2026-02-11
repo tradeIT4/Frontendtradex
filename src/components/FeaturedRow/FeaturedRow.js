@@ -3,30 +3,45 @@ import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import "./FeaturedRow.css";
 
-export default function FeaturedRow({ items }) {
+export default function FeaturedRow({ items = [] }) {
   const navigate = useNavigate();
   const { language } = useLanguage();
 
   const [page, setPage] = useState(0);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+
+  // Handle resize
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   // Reset page on language or data change
   useEffect(() => {
     setPage(0);
   }, [language, items]);
 
-  // Mobile: 1 item per page
+  const maxPage = items.length - 1;
+
+  // ✅ Hook must always run
   const pagedItems = useMemo(() => {
     return items.slice(page, page + 1);
   }, [items, page]);
 
-  const isMobile = window.innerWidth < 768;
-  const maxPage = items.length - 1;
+  const goToArticle = (id) => {
+    if (!id) return;
+    navigate(`/article/${id}`);
+  };
 
+  // ✅ Early return AFTER hooks
   if (!items || items.length === 0) return null;
 
   return (
     <section className="featured">
-      {/* MOBILE PAGINATION */}
       {isMobile && (
         <div className="featuredNav">
           <button
@@ -41,9 +56,7 @@ export default function FeaturedRow({ items }) {
           </span>
 
           <button
-            onClick={() =>
-              setPage((p) => Math.min(maxPage, p + 1))
-            }
+            onClick={() => setPage((p) => Math.min(maxPage, p + 1))}
             disabled={page === maxPage}
           >
             →
@@ -54,9 +67,10 @@ export default function FeaturedRow({ items }) {
       <div className="featuredTrack">
         {(isMobile ? pagedItems : items).map((item) => (
           <article
-            key={item.id}
+            key={item._id}
             className="featuredCard"
-            onClick={() => navigate(`/article/${item.id}`)}
+            onClick={() => goToArticle(item._id)}
+            style={{ cursor: "pointer" }}
           >
             <img src={item.image} alt={item.title} />
 
@@ -65,7 +79,9 @@ export default function FeaturedRow({ items }) {
                 {item.category}
               </span>
 
-              <h2 className="featuredTitle">{item.title}</h2>
+              <h2 className="featuredTitle">
+                {item.title}
+              </h2>
 
               <p className="featuredDesc">
                 {item.description}

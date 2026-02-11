@@ -1,0 +1,873 @@
+/* =========================================================
+Netflix-style theme (dark + red) for your existing PTV UI
+Uses your same class names, just restyled.
+========================================================= */
+
+:root{
+/* Core */
+--ptv-bg: #0b0b0f;              /* Netflix-ish dark */
+--ptv-card: #141418;
+--ptv-card2: #1a1a20;
+--ptv-text: #f5f5f7;
+--ptv-muted: rgba(245,245,247,.70);
+--ptv-border: rgba(255,255,255,.10);
+
+/* Netflix red accent */
+--ptv-accent: #e50914;          /* Netflix red */
+--ptv-accent2: #b20710;         /* deeper red */
+--ptv-glow: rgba(229,9,20,.34);
+
+/* Effects */
+--ptv-shadow: 0 10px 26px rgba(0,0,0,.55);
+--ptv-shadow2: 0 18px 46px rgba(0,0,0,.66);
+
+/* Radii */
+--ptv-r-md: 14px;
+--ptv-r-lg: 18px;
+--ptv-r-xl: 22px;
+
+/* Typography */
+--ptv-font: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+
+/* Layout */
+--ptv-max: 1400px;
+--ptv-rail-gap: 12px;
+
+/* Header heights (used by sticky bars) */
+--ptv-header-h: 66px;
+}
+
+/* Base page */
+.ptvPage{
+min-height: 100vh;
+font-family: var(--ptv-font);
+color: var(--ptv-text);
+background:
+radial-gradient(900px 420px at 18% 0%, rgba(229,9,20,.18), transparent 60%),
+radial-gradient(700px 320px at 88% 10%, rgba(255,255,255,.05), transparent 55%),
+linear-gradient(180deg, rgba(229,9,20,.06), transparent 22%),
+var(--ptv-bg);
+}
+
+/* Optional: nicer scrolling rails */
+.ptvPage *{
+box-sizing: border-box;
+}
+.ptvRail{
+scrollbar-width: thin;
+scrollbar-color: rgba(255,255,255,.18) transparent;
+}
+.ptvRail::-webkit-scrollbar{ height: 10px; }
+.ptvRail::-webkit-scrollbar-track{ background: transparent; }
+.ptvRail::-webkit-scrollbar-thumb{
+background: rgba(255,255,255,.16);
+border-radius: 999px;
+}
+.ptvRail::-webkit-scrollbar-thumb:hover{ background: rgba(255,255,255,.26); }
+
+/* =========================================================
+Header (Netflix style: dark, subtle, red active)
+========================================================= */
+.ptvHeader{
+position: sticky;
+top: 0;
+z-index: 60;
+background: rgba(11,11,15,.78);
+backdrop-filter: blur(14px);
+border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.ptvHeaderInner{
+max-width: var(--ptv-max);
+margin: 0 auto;
+padding: 14px 16px;
+display: grid;
+grid-template-columns: 1fr auto 1fr;
+gap: 14px;
+align-items: center;
+}
+
+/* Brand */
+.ptvBrand{ display:flex; gap:10px; align-items:center; }
+.ptvLogo{
+width: 38px; height: 38px;
+border-radius: 12px;
+display:grid; place-items:center;
+background: rgba(229,9,20,.15);
+border: 1px solid rgba(229,9,20,.42);
+color: var(--ptv-accent);
+font-weight: 950;
+letter-spacing: .7px;
+box-shadow: 0 0 0 6px rgba(229,9,20,.06);
+}
+.ptvBrandName{ font-weight: 950; font-size: 14px; letter-spacing: .2px; }
+.ptvBrandTag{ font-size: 12px; color: var(--ptv-muted); margin-top: 2px; }
+
+/* Nav */
+.ptvNav{
+display:flex;
+gap: 8px;
+justify-content:center;
+align-items:center;
+padding: 6px 8px;
+border-radius: 999px;
+background: rgba(255,255,255,.03);
+border: 1px solid rgba(255,255,255,.06);
+}
+.ptvNavLink{
+color: rgba(245,245,247,.75);
+text-decoration:none;
+font-weight: 900;
+font-size: 13px;
+padding: 8px 12px;
+border-radius: 999px;
+transition: background .16s ease, color .16s ease, transform .16s ease;
+}
+.ptvNavLink:hover{
+color: var(--ptv-text);
+background: rgba(255,255,255,.06);
+}
+.ptvNavLink.active{
+color: var(--ptv-text);
+background: rgba(229,9,20,.22);
+border: 1px solid rgba(229,9,20,.45);
+box-shadow: 0 0 0 4px rgba(229,9,20,.10);
+}
+
+/* Search */
+.ptvSearchWrap{ display:flex; justify-content:flex-end; }
+.ptvSearch{
+width: min(520px, 100%);
+padding: 11px 12px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,.10);
+background: rgba(255,255,255,.04);
+color: var(--ptv-text);
+outline: none;
+font-weight: 750;
+transition: border-color .16s ease, box-shadow .16s ease, background .16s ease;
+}
+.ptvSearch::placeholder{ color: rgba(245,245,247,.45); font-weight: 700; }
+.ptvSearch:focus{
+background: rgba(255,255,255,.06);
+border-color: rgba(229,9,20,.55);
+box-shadow: 0 0 0 4px rgba(229,9,20,.14);
+}
+
+/* =========================================================
+Sticky filter bar 
+========================================================= */
+.ptvFilterBar{
+position: sticky;
+top: var(--ptv-header-h);
+z-index: 55;
+background: rgba(11,11,15,.72);
+backdrop-filter: blur(14px);
+border-bottom: 1px solid rgba(255,255,255,.08);
+}
+
+.ptvFilterInner{
+max-width: var(--ptv-max);
+margin: 0 auto;
+padding: 10px 12px;
+display:flex;
+gap: 10px;
+overflow:auto;
+scrollbar-width: thin;
+scroll-snap-type: x proximity;
+scroll-padding-left: 12px;
+scroll-padding-right: 12px;
+-webkit-overflow-scrolling: touch;
+overscroll-behavior-x: contain;
+mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+-webkit-mask-image: linear-gradient(90deg, transparent 0, #000 18px, #000 calc(100% - 18px), transparent 100%);
+}
+
+.ptvChip{
+border: 1px solid rgba(255,255,255,.10);
+background: rgba(255,255,255,.04);
+color: rgba(245,245,247,.72);
+padding: 8px 12px;
+border-radius: 999px;
+font-weight: 900;
+font-size: 12px;
+cursor: pointer;
+white-space: nowrap;
+transition: transform .14s ease, background .14s ease, border-color .14s ease, color .14s ease, box-shadow .14s ease, filter .14s ease;
+scroll-snap-align: start;
+position: relative;
+user-select: none;
+-webkit-tap-highlight-color: transparent;
+}
+.ptvChip:hover{
+color: var(--ptv-text);
+background: rgba(255,255,255,.06);
+transform: translateY(-1px);
+}
+.ptvChip:active{
+transform: translateY(0);
+filter: brightness(1.02);
+}
+.ptvChip:focus-visible{
+outline: none;
+border-color: rgba(229,9,20,.62);
+box-shadow: 0 0 0 4px rgba(229,9,20,.16);
+color: var(--ptv-text);
+}
+.ptvChip.active,
+.ptvChip[aria-pressed="true"]{
+color: var(--ptv-text);
+border-color: rgba(229,9,20,.62);
+background: rgba(229,9,20,.20);
+box-shadow: 0 0 0 4px rgba(229,9,20,.12);
+}
+.ptvChip.active::after,
+.ptvChip[aria-pressed="true"]::after{
+content:"";
+position:absolute;
+left: 10px;
+right: 10px;
+bottom: -6px;
+height: 2px;
+border-radius: 999px;
+background: rgba(229,9,20,.85);
+box-shadow: 0 8px 18px rgba(229,9,20,.18);
+pointer-events: none;
+}
+
+/* =========================================================
+Hero (big cinematic banner)
+========================================================= */
+.ptvHero{
+max-width: var(--ptv-max);
+margin: 0 auto;
+padding: 18px 12px 8px;
+display:grid;
+grid-template-columns: 1.15fr .85fr;
+gap: 16px;
+}
+
+.ptvHeroBg{
+position: relative;
+border-radius: var(--ptv-r-xl);
+overflow: hidden;
+border: 1px solid rgba(255,255,255,.10);
+background: var(--ptv-card);
+min-height: 280px;
+box-shadow: var(--ptv-shadow2);
+}
+
+.ptvHeroImg{
+width: 100%;
+height: 100%;
+object-fit: cover;
+transform: scale(1.05);
+filter: saturate(1.05) contrast(1.05);
+}
+
+/* Netflix-y vignette */
+.ptvHeroOverlay{
+position:absolute;
+inset:0;
+background:
+radial-gradient(900px 360px at 15% 30%, rgba(229,9,20,.22), transparent 60%),
+linear-gradient(90deg, rgba(11,11,15,.92), rgba(11,11,15,.35), rgba(11,11,15,.92)),
+linear-gradient(180deg, rgba(0,0,0,.10), rgba(0,0,0,.55));
+}
+
+/* Content card */
+.ptvHeroContent{
+border: 1px solid rgba(255,255,255,.10);
+background: rgba(20,20,24,.72);
+border-radius: var(--ptv-r-xl);
+padding: 18px;
+box-shadow: var(--ptv-shadow);
+}
+
+.ptvHeroKicker{
+color: rgba(245,245,247,.90);
+font-weight: 950;
+font-size: 12px;
+letter-spacing: .6px;
+display:inline-flex;
+align-items:center;
+gap: 8px;
+}
+.ptvHeroKicker::before{
+content:"";
+width: 10px; height: 10px;
+border-radius: 3px;
+background: var(--ptv-accent);
+box-shadow: 0 0 0 6px rgba(229,9,20,.14);
+}
+
+.ptvHeroTitle{
+margin: 10px 0 10px;
+font-size: 28px;
+line-height: 1.14;
+letter-spacing: .2px;
+}
+
+.ptvHeroMeta{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+color: rgba(245,245,247,.66);
+font-weight: 800;
+font-size: 12px;
+}
+.dot{ opacity:.7; }
+
+.ptvHeroDesc{
+margin: 12px 0 14px;
+color: rgba(245,245,247,.88);
+font-size: 13px;
+line-height: 1.55;
+}
+
+/* Buttons (Netflix-ish) */
+.ptvHeroActions{ display:flex; gap:10px; flex-wrap:wrap; }
+
+.ptvBtnPrimary{
+display:inline-flex;
+align-items:center;
+gap:8px;
+text-decoration:none;
+padding: 11px 16px;
+border-radius: 10px;
+background: var(--ptv-accent);
+color: #fff;
+font-weight: 950;
+border: 1px solid rgba(229,9,20,.70);
+box-shadow: 0 10px 18px rgba(229,9,20,.16);
+transition: transform .14s ease, filter .14s ease, box-shadow .14s ease;
+}
+.ptvBtnPrimary:hover{
+transform: translateY(-1px);
+filter: brightness(1.03);
+box-shadow: 0 16px 28px rgba(229,9,20,.20);
+}
+.ptvBtnPrimary:active{ transform: translateY(0); }
+
+.ptvBtnGhost{
+padding: 11px 16px;
+border-radius: 10px;
+background: rgba(255,255,255,.06);
+border: 1px solid rgba(255,255,255,.12);
+color: var(--ptv-text);
+font-weight: 950;
+cursor:pointer;
+transition: transform .14s ease, background .14s ease, border-color .14s ease;
+}
+.ptvBtnGhost:hover{
+background: rgba(255,255,255,.09);
+border-color: rgba(255,255,255,.18);
+transform: translateY(-1px);
+}
+
+/* =========================================================
+Main + Rows
+========================================================= */
+.ptvMain{
+max-width: var(--ptv-max);
+margin: 0 auto;
+padding: 6px 12px 28px;
+}
+
+.ptvRow{ margin-top: 18px; }
+
+.ptvRowHeader{
+display:flex;
+justify-content:space-between;
+align-items:baseline;
+gap:12px;
+margin-bottom: 10px;
+}
+
+.ptvRowTitle{
+font-size: 16px;
+font-weight: 950;
+letter-spacing: .2px;
+}
+
+.ptvRowCount{
+color: rgba(245,245,247,.60);
+font-weight: 850;
+font-size: 12px;
+}
+
+/* Netflix-style horizontal rail */
+.ptvRail{
+display:flex;
+gap: var(--ptv-rail-gap);
+overflow-x: auto;
+padding-bottom: 10px;
+scroll-snap-type: x proximity;
+padding-left: 2px;
+}
+.ptvRailItem{ scroll-snap-align: start; }
+
+/* =========================================================
+Cards (Netflix poster tile behavior)
+========================================================= */
+.ptvCard{
+width: 280px;
+border-radius: var(--ptv-r-lg);
+border: 1px solid rgba(255,255,255,.10);
+background: rgba(20,20,24,.72);
+padding: 0;
+text-align:left;
+cursor: pointer;
+color: var(--ptv-text);
+box-shadow: 0 8px 18px rgba(0,0,0,.45);
+transition: transform .16s ease, border-color .16s ease, box-shadow .16s ease, filter .16s ease;
+transform-origin: center;
+}
+
+.ptvCard:hover{
+transform: translateY(-4px) scale(1.03);
+border-color: rgba(229,9,20,.42);
+box-shadow: 0 18px 44px rgba(0,0,0,.62);
+filter: saturate(1.04);
+}
+
+/* Thumb */
+.ptvThumbWrap{
+position:relative;
+border-radius: var(--ptv-r-lg) var(--ptv-r-lg) 0 0;
+overflow:hidden;
+height: 160px;
+background: #0f0f12;
+}
+.ptvThumb{
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;
+transform: scale(1.03);
+transition: transform .18s ease;
+}
+.ptvCard:hover .ptvThumb{ transform: scale(1.08); }
+
+/* Play badge */
+.ptvPlayBadge{
+position:absolute;
+left: 12px; top: 12px;
+width: 36px; height: 36px;
+border-radius: 999px;
+display:grid; place-items:center;
+background: rgba(0,0,0,.55);
+border: 1px solid rgba(255,255,255,.18);
+font-weight: 950;
+box-shadow: 0 10px 18px rgba(0,0,0,.35);
+}
+
+/* Hover CTA */
+.ptvHoverCta{
+position:absolute;
+right: 12px; bottom: 12px;
+padding: 8px 12px;
+border-radius: 999px;
+background: rgba(229,9,20,.95);
+color: #fff;
+font-weight: 950;
+font-size: 12px;
+opacity: 0;
+transform: translateY(10px);
+transition: opacity .16s ease, transform .16s ease, filter .16s ease;
+box-shadow: 0 12px 22px rgba(229,9,20,.18);
+}
+.ptvCard:hover .ptvHoverCta{
+opacity: 1;
+transform: translateY(0);
+}
+.ptvHoverCta:hover{ filter: brightness(1.03); }
+
+/* Meta */
+.ptvMeta{ padding: 12px 12px 14px; }
+
+.ptvTitle{
+font-weight: 950;
+font-size: 13px;
+line-height: 1.25;
+margin-bottom: 6px;
+letter-spacing: .15px;
+}
+
+.ptvSub{
+display:flex;
+flex-wrap:wrap;
+gap:6px;
+color: rgba(245,245,247,.64);
+font-weight: 800;
+font-size: 11px;
+margin-bottom: 6px;
+}
+
+.ptvHost{
+color: rgba(245,245,247,.88);
+font-weight: 850;
+font-size: 11px;
+}
+
+/* =========================================================
+Empty state + Footer
+========================================================= */
+.ptvEmpty{
+border: 1px dashed rgba(255,255,255,.16);
+border-radius: var(--ptv-r-xl);
+padding: 22px;
+margin-top: 18px;
+background: rgba(20,20,24,.55);
+}
+.ptvEmptyTitle{ font-weight: 950; }
+.ptvEmptyHint{ color: rgba(245,245,247,.65); margin-top: 6px; }
+
+.ptvFooter{
+border-top: 1px solid rgba(255,255,255,.08);
+padding: 16px 12px;
+color: rgba(245,245,247,.62);
+text-align:center;
+font-weight: 800;
+font-size: 12px;
+}/* =========================================
+   GLOBAL SCROLLBAR (Modern + Netflix style)
+========================================= */
+
+/* Chrome, Edge, Safari */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.04);
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(229,9,20,0.85),
+    rgba(178,7,16,0.85)
+  );
+  border-radius: 20px;
+  border: 2px solid rgba(11,11,15,0.8);
+  transition: all .2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(
+    180deg,
+    rgba(255,50,60,1),
+    rgba(229,9,20,1)
+  );
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(10, 10, 10, 0.85) rgba(255,255,255,0.05);
+}
+.ptvRail::-webkit-scrollbar {
+  height: 6px;
+}
+
+.ptvRail::-webkit-scrollbar-thumb {
+  background: rgba(218, 214, 214, 0.7);
+  border-radius: 999px;
+}
+
+.ptvRail::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ptvRail::-webkit-scrollbar {
+  height: 0px;
+}
+
+.ptvRail:hover::-webkit-scrollbar {
+  height: 6px;
+}
+/* =========================================
+   SMOOTH SLOW MAIN SECTION EFFECTS
+   (Easy add-on)
+========================================= */
+
+/* Smooth page scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Smooth horizontal rails */
+.ptvRail {
+  scroll-behavior: smooth;
+}
+
+/* Slow premium card hover */
+.ptvCard {
+  transition: transform .45s cubic-bezier(.22,.61,.36,1),
+              box-shadow .45s ease,
+              filter .45s ease;
+}
+
+/* =========================================
+   FIX: No left-right movement
+========================================= */
+
+/* Remove any sideways animation */
+.ptvRail {
+  scroll-snap-type: none;
+  scroll-behavior: auto; /* stop auto glide */
+}
+
+/* Keep only vertical smooth scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Vertical fade only (no horizontal motion) */
+@keyframes ptvFadeUpClean {
+  from {
+    opacity: 0;
+    transform: translateY(20px); /* only up/down */
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.ptvRow {
+  animation: ptvFadeUpClean .6s ease-out;
+}
+/* =========================================
+   AUTO SLIDE POSTS (Left → Right)
+========================================= */
+
+/* Make rail animation container */
+.ptvRail {
+  overflow: hidden; /* hide scrollbar */
+  position: relative;
+}
+
+/* Animate items */
+.ptvRail {
+  display: flex;
+  gap: var(--ptv-rail-gap);
+  animation: ptvAutoSlide 25s linear infinite;
+}
+/* =========================================
+   ULTRA PREMIUM FOOTER
+========================================= */
+
+.ptvFooter {
+  margin-top: 100px;
+  background:
+    radial-gradient(600px 300px at 20% 0%, rgba(229,9,20,.08), transparent 60%),
+    linear-gradient(180deg, #0c0c12 0%, #08080c 100%);
+  border-top: 1px solid rgba(229,9,20,.25);
+  padding-top: 70px;
+  position: relative;
+}
+
+/* Soft top glow line */
+.ptvFooter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80%;
+  height: 2px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(229,9,20,.8),
+    transparent
+  );
+  opacity: .8;
+}
+
+/* Container */
+.ptvFooterContainer {
+  max-width: var(--ptv-max);
+  margin: 0 auto;
+  padding: 0 24px 50px;
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: 60px;
+}
+
+/* Brand Column */
+.ptvFooterBrand {
+  font-size: 22px;
+  font-weight: 900;
+  letter-spacing: .5px;
+  margin-bottom: 16px;
+  color: #fff;
+}
+
+.ptvFooterText {
+  font-size: 14px;
+  color: rgba(245,245,247,.60);
+  line-height: 1.8;
+  max-width: 420px;
+}
+
+/* Titles */
+.ptvFooterTitle {
+  font-size: 15px;
+  font-weight: 800;
+  margin-bottom: 18px;
+  color: #fff;
+  position: relative;
+}
+
+.ptvFooterTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -6px;
+  left: 0;
+  width: 30px;
+  height: 2px;
+  background: var(--ptv-accent);
+  border-radius: 2px;
+}
+
+/* Contact Items */
+.ptvFooterItem {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14px;
+  color: rgba(245,245,247,.65);
+  margin-bottom: 14px;
+  transition: color .3s ease;
+}
+
+.ptvFooterItem svg {
+  color: var(--ptv-accent);
+  font-size: 14px;
+}
+
+.ptvFooterItem:hover {
+  color: #fff;
+}
+
+/* Social Section */
+.ptvFooterSocial {
+  display: flex;
+  gap: 18px;
+  margin-top: 10px;
+}
+
+.ptvSocialIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255,255,255,.75);
+  font-size: 18px;
+  transition: all .4s cubic-bezier(.22,.61,.36,1);
+}
+
+.ptvSocialIcon:hover {
+  background: rgba(229,9,20,.18);
+  border-color: rgba(229,9,20,.6);
+  color: var(--ptv-accent);
+  transform: translateY(-8px) scale(1.15);
+  box-shadow: 0 15px 30px rgba(229,9,20,.25);
+}
+
+/* Bottom Copyright */
+.ptvFooterBottom {
+  text-align: center;
+  padding: 25px 20px;
+  font-size: 13px;
+  color: rgba(245,245,247,.45);
+  border-top: 1px solid rgba(255,255,255,.05);
+  background: #07070b;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 992px) {
+  .ptvFooterContainer {
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+  }
+}
+
+@media (max-width: 640px) {
+  .ptvFooterContainer {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .ptvFooterText {
+    margin: 0 auto;
+  }
+
+  .ptvFooterItem {
+    justify-content: center;
+  }
+
+  .ptvFooterSocial {
+    justify-content: center;
+  }
+}
+
+/* Slow continuous movement */
+@keyframes ptvAutoSlide {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+
+/* =========================================================
+Responsive
+========================================================= */
+@media (max-width: 980px){
+:root{ --ptv-header-h: 124px; }
+
+.ptvHeaderInner{ grid-template-columns: 1fr; }
+.ptvNav{
+justify-content:flex-start;
+overflow:auto;
+border-radius: 14px;
+}
+.ptvSearchWrap{ justify-content:stretch; }
+.ptvHero{ grid-template-columns: 1fr; }
+.ptvFilterBar{ top: var(--ptv-header-h); }
+.ptvFilterInner{
+mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+-webkit-mask-image: linear-gradient(90deg, transparent 0, #000 14px, #000 calc(100% - 14px), transparent 100%);
+}
+}
+
+@media (max-width: 520px){
+.ptvCard{ width: 240px; }
+.ptvHeroTitle{ font-size: 22px; }
+.ptvFilterInner{
+gap: 8px;
+padding: 10px 10px;
+scroll-padding-left: 10px;
+scroll-padding-right: 10px;
+mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+-webkit-mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12px), transparent 100%);
+}
+.ptvChip{
+padding: 8px 11px;
+font-size: 12px;
+}
+}

@@ -1,15 +1,19 @@
-import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { apiPublicGet } from "../services/api";
 import { useLanguage } from "../context/LanguageContext";
-import { videos } from "../data/mockData";
 import "../styles/video.css";
 
-function getYouTubeId(url) {
+function getYouTubeEmbed(url) {
   if (!url) return null;
+
   const match = String(url).match(
     /(?:youtube\.com\/(?:watch\?v=|embed\/)|youtu\.be\/)([^&?/]+)/i
   );
-  return match ? match[1] : null;
+
+  return match
+    ? `https://www.youtube.com/embed/${match[1]}`
+    : null;
 }
 
 export default function VideoPage() {
@@ -17,49 +21,83 @@ export default function VideoPage() {
   const navigate = useNavigate();
   const { language, t } = useLanguage();
 
-  const video = videos.find((v) => v.id === id && (v.language || "en") === language);
+  const [video, setVideo] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!video) {
+  useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        // Prevent invalid Mongo ID navigation
+        if (!id || id === "undefined") {
+          navigate("/", { replace: true });
+          return;
+        }
+
+        const data = await apiPublicGet(`/api/public/videos/${id}`);
+
+        // Optional language protection
+        if (data?.language && data.language !== language) {
+          navigate("/", { replace: true });
+          return;
+        }
+
+        setVideo(data);
+      } catch (error) {
+        console.error("Video fetch error:", error.message);
+        navigate("/", { replace: true });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVideo();
+  }, [id, language, navigate]);
+
+  if (loading) {
     return (
       <main className="videoPage">
-        <p className="videoError">Video not found.</p>
-        <button className="videoBack" onClick={() => navigate("/")}>
-          ← {t("back")}
-        </button>
+        <p>Loading video...</p>
       </main>
     );
   }
 
-  const vid = getYouTubeId(video.youtubeUrl);
+  if (!video) return null;
 
-  if (!vid) {
-    return (
-      <main className="videoPage">
-        <p className="videoError">Invalid YouTube URL.</p>
-        <button className="videoBack" onClick={() => navigate("/")}>
-          ← {t("back")}
-        </button>
-      </main>
-    );
-  }
+  const embedUrl = getYouTubeEmbed(video.youtubeUrl);
 
   return (
     <main className="videoPage">
-      <button className="videoBack" onClick={() => navigate(-1)}>
+      <button
+        className="videoBack"
+        onClick={() => navigate(-1)}
+      >
         ← {t("back")}
       </button>
 
       <h1 className="videoTitle">{video.title}</h1>
-      <div className="videoMeta">{video.author} · {video.date}</div>
 
-      <div className="videoFrameWrap">
-        <iframe
-          src={`https://www.youtube.com/embed/${vid}`}
-          title={video.title}
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen
-        />
+      <div className="videoMeta">
+        {video.date && <span>{video.date}</span>}
       </div>
+
+      <div className="videoPlayerWrapper">
+        {embedUrl ? (
+          <iframe
+            src={embedUrl}
+            title={video.title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <p className="videoError">Invalid YouTube URL</p>
+        )}
+      </div>
+
+      {video.description && (
+        <p className="videoDescription">
+          {video.description}
+        </p>
+      )}
     </main>
   );
 }

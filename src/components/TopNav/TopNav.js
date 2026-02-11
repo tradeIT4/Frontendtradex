@@ -1,66 +1,70 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import ReactCountryFlag from "react-country-flag";
 import "./TopNav.css";
 
 export default function TopNav({
-  categories,
+  categories = [],
   activeCategory,
   onCategoryChange,
   themeApi,
   compact = false,
 }) {
   const navigate = useNavigate();
+  const { language, changeLanguage, t } = useLanguage();
+
   const [menuOpen, setMenuOpen] = useState(false);
-  const { language, changeLanguage, t } = useLanguage(); // <- add t
   const [langOpen, setLangOpen] = useState(false);
 
   const isDark = themeApi.theme === "dark";
 
   const handleCategoryClick = (cat) => {
-    onCategoryChange(cat);
+    onCategoryChange?.(cat);
     setMenuOpen(false);
-    navigate("/");
+    navigate(`/category/${cat}`);
   };
 
   const handleLanguageChange = (lang) => {
     changeLanguage(lang);
     setLangOpen(false);
-    navigate("/");
   };
 
   return (
     <header className="topNav">
-      {/* ROW 1 */}
+      {/* ───────────────── TOP ROW ───────────────── */}
       <div className="topNav__row topNav__row--top">
+        {/* Logo */}
         <div className="brand" onClick={() => navigate("/")}>
           <span className="brand__logo">⬣</span>
           <span className="brand__name">TradeX</span>
         </div>
 
+        {/* Right controls */}
         <div className="rightControls">
+          {/* Desktop auth */}
           <div className="desktopOnly">
-            <button className="linkBtn" onClick={() => navigate("/signin")}>
+            <NavLink to="/signin" className="linkBtn">
               {t("signIn")}
-            </button>
-            <button className="linkBtn" onClick={() => navigate("/signup")}>
+            </NavLink>
+            <NavLink to="/signup" className="linkBtn">
               {t("signUp")}
-            </button>
-            <button className="primaryBtn">{t("subscribe")}</button>
+            </NavLink>
+            <NavLink to="/subscribe" className="primaryBtn">
+              {t("subscribe")}
+            </NavLink>
           </div>
 
-          {/* Language dropdown */}
+          {/* Language */}
           <div className="langWrap">
             <button
               className="langBtn"
               onClick={() => setLangOpen((v) => !v)}
-              aria-label="Language"
             >
               <ReactCountryFlag
                 countryCode={language === "en" ? "GB" : "ET"}
                 svg
-                style={{ width: "20px", height: "14px", marginRight: "6px" }}
+                style={{ width: 20, height: 14, marginRight: 6 }}
               />
               {language === "en" ? "English" : "አማርኛ"} ▼
             </button>
@@ -68,61 +72,57 @@ export default function TopNav({
             {langOpen && (
               <div className="langMenu">
                 <button onClick={() => handleLanguageChange("en")}>
-                  <ReactCountryFlag
-                    countryCode="GB"
-                    svg
-                    style={{ width: "20px", height: "14px", marginRight: "6px" }}
-                  />
-                  English
+                  🇬🇧 English
                 </button>
                 <button onClick={() => handleLanguageChange("am")}>
-                  <ReactCountryFlag
-                    countryCode="ET"
-                    svg
-                    style={{ width: "20px", height: "14px", marginRight: "6px" }}
-                  />
-                  አማርኛ
+                  🇪🇹 አማርኛ
                 </button>
               </div>
             )}
           </div>
 
-          {/* Theme toggle */}
+          {/* Theme */}
           <button
             className="themeBtn"
             onClick={themeApi.toggleTheme}
-            aria-label="Toggle theme"
           >
             {isDark ? "☀" : "☾"}
           </button>
 
-          {/* Hamburger (mobile) */}
+          {/* Mobile menu */}
           <button
             className="hamburger mobileOnly"
             onClick={() => setMenuOpen(!menuOpen)}
-            aria-label="Menu"
           >
             ☰
           </button>
         </div>
       </div>
 
-      {/* ROW 2 desktop categories */}
+      {/* ───────────────── DESKTOP NAV ───────────────── */}
       <div className="topNav__row topNav__row--bottom desktopOnly">
         <nav className={`cats ${compact ? "cats--compact" : ""}`}>
           {categories.map((cat) => (
-            <button
+            <NavLink
               key={cat}
-              className={`catItem ${cat === activeCategory ? "isActive" : ""}`}
-              onClick={() => handleCategoryClick(cat)}
+              to={`/category/${cat}`}
+              className={({ isActive }) =>
+                `catItem ${isActive ? "isActive" : ""}`
+              }
+              onClick={() => onCategoryChange?.(cat)}
             >
-              {t(`${cat}`)} {/* <- translation */}
-            </button>
+              {t(cat)}
+            </NavLink>
           ))}
+
+          {/* 🎥 Video */}
+          <NavLink to="/programs-tv" className="catItem navVideo">
+            {t("video")}
+          </NavLink>
         </nav>
       </div>
 
-      {/* Mobile menu */}
+      {/* ───────────────── MOBILE MENU ───────────────── */}
       {menuOpen && (
         <div className="mobileMenu">
           <div className="mobileSection">
@@ -134,44 +134,45 @@ export default function TopNav({
                 }`}
                 onClick={() => handleCategoryClick(cat)}
               >
-                {t(`${cat}`)} {/* <- translation */}
+                {t(cat)}
               </button>
             ))}
+
+            <button
+              className="mobileCat"
+              onClick={() => {
+                setMenuOpen(false);
+                navigate("/programs-tv");
+              }}
+            >
+              🎥 {t("video")}
+            </button>
           </div>
 
           <div className="mobileSection">
-            <button className="mobileBtn" onClick={() => navigate("/signin")}>
+            <NavLink to="/signin" className="mobileBtn">
               {t("signIn")}
-            </button>
-            <button className="mobileBtn" onClick={() => navigate("/signup")}>
+            </NavLink>
+            <NavLink to="/signup" className="mobileBtn">
               {t("signUp")}
-            </button>
-            <button className="mobileBtn primary">{t("subscribe")}</button>
+            </NavLink>
+            <NavLink to="/subscribe" className="mobileBtn primary">
+              {t("subscribe")}
+            </NavLink>
           </div>
 
-          {/* Mobile Language selector */}
           <div className="mobileSection">
             <button
               className="mobileBtn"
               onClick={() => handleLanguageChange("en")}
             >
-              <ReactCountryFlag
-                countryCode="GB"
-                svg
-                style={{ width: "20px", height: "14px", marginRight: "6px" }}
-              />
-              English
+              🇬🇧 English
             </button>
             <button
               className="mobileBtn"
               onClick={() => handleLanguageChange("am")}
             >
-              <ReactCountryFlag
-                countryCode="ET"
-                svg
-                style={{ width: "20px", height: "14px", marginRight: "6px" }}
-              />
-              አማርኛ
+              🇪🇹 አማርኛ
             </button>
           </div>
         </div>

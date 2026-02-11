@@ -1,17 +1,18 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import "./VideoGrid.css";
 
 export default function VideoGrid({ items = [] }) {
-  const navigate = useNavigate();
   const { t } = useLanguage();
 
-  if (!items.length) return null;
+  if (!items || items.length === 0) return null;
 
-  // ensure enough items so mobile always shows
+  // Duplicate items for marquee loop
   const loopItems =
-    items.length < 6 ? [...items, ...items, ...items] : [...items, ...items];
+    items.length < 6
+      ? [...items, ...items, ...items]
+      : [...items, ...items];
 
   return (
     <section className="videoMarqueeSection">
@@ -23,19 +24,23 @@ export default function VideoGrid({ items = [] }) {
       <div className="videoMarquee">
         <div className="videoTrack">
           {loopItems.map((v, idx) => (
-            <div
-              key={`${v.id}-${idx}`}
+            <Link
+              key={`${v._id}-${idx}`}
+              to={`/video/${v._id}`}   // ✅ MongoDB _id
               className="videoItem"
-              onClick={() => navigate(`/video/${v.id}`)}
-              role="button"
-              tabIndex={0}
             >
-              <img src={v.thumbnail} alt={v.title} loading="lazy" />
+              <img
+                src={v.thumbnail || "/placeholder.jpg"}
+                alt={v.title || "Video"}
+                loading="lazy"
+              />
 
               <div className="videoTitleOverlay">
-                <span className="videoItemTitle">{v.title}</span>
+                <span className="videoItemTitle">
+                  {v.title}
+                </span>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
