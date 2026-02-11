@@ -793,6 +793,46 @@ html {
   background: #07070b;
 }
 
+.ptvRail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+
+  /* Important for touch */
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+
+  /* Optional: hide scrollbar */
+  scrollbar-width: none; /* Firefox */
+}
+
+.ptvRail::-webkit-scrollbar {
+  display: none; /* Chrome/Safari */
+}
+
+.ptvRailItem {
+  flex: 0 0 auto;
+}
+.ptvRail {
+  display: flex;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* enables smooth touch scrolling on iOS */
+  gap: 16px;
+  padding-bottom: 8px;
+}
+
+.ptvRail::-webkit-scrollbar {
+  display: none; /* optional: hide scrollbar */
+}
+
+.ptvRailItem {
+  flex: 0 0 auto; /* prevents items from shrinking */
+}
+
 /* =========================================
    RESPONSIVE
 ========================================= */
