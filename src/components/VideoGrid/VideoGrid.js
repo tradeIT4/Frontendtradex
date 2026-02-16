@@ -1,48 +1,37 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useLanguage } from "../../context/LanguageContext";
-import "./VideoGrid.css";
+import "../../styles/videoGrid.css";
 
 export default function VideoGrid({ items = [] }) {
-  const { t } = useLanguage();
-
-  if (!items || items.length === 0) return null;
-
-  // Duplicate items for marquee loop
-  const loopItems =
-    items.length < 6
-      ? [...items, ...items, ...items]
-      : [...items, ...items];
+  if (!items.length) return null;
 
   return (
-    <section className="videoMarqueeSection">
+    <section className="videoSection">
       <div className="videoHeader">
-        <h2 className="videoSectionTitle">{t("videos")}</h2>
-        <p className="videoSectionSub">{t("videosDesc")}</p>
+        <h2>Videos</h2>
       </div>
 
-      <div className="videoMarquee">
-        <div className="videoTrack">
-          {loopItems.map((v, idx) => (
-            <Link
-              key={`${v._id}-${idx}`}
-              to={`/video/${v._id}`}   // ✅ MongoDB _id
-              className="videoItem"
-            >
+      <div className="videoGrid">
+        {items.map((video) => (
+          <Link
+            key={video._id}
+            to={`/video/${video._id}`}
+            className="videoCard"
+          >
+            <div className="videoThumb">
               <img
-                src={v.thumbnail || "/placeholder.jpg"}
-                alt={v.title || "Video"}
+                src={video.image}
+                alt={video.title}
                 loading="lazy"
               />
+              <div className="playOverlay">▶</div>
+            </div>
 
-              <div className="videoTitleOverlay">
-                <span className="videoItemTitle">
-                  {v.title}
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
+            <div className="videoBody">
+              <h3>{video.title}</h3>
+            </div>
+          </Link>
+        ))}
       </div>
     </section>
   );

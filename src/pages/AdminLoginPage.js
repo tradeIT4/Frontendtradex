@@ -1,9 +1,9 @@
 // src/pages/AdminLoginPage.js
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { apiPost } from "../services/api";
 import { saveAuth } from "../services/auth";
-import "../styles/subscriber.css"; // reuse nice auth UI
+import "../styles/subscriber.css";
 
 export default function AdminLoginPage() {
   const navigate = useNavigate();
@@ -19,10 +19,7 @@ export default function AdminLoginPage() {
 
     try {
       const data = await apiPost("/api/auth/admin/login", { email, password });
-
-      // ✅ MUST CONTAIN token + role:"admin"
       saveAuth(data);
-
       navigate("/admin", { replace: true });
     } catch (err) {
       setError(err.message || "Admin login failed");
@@ -58,6 +55,14 @@ export default function AdminLoginPage() {
         <button disabled={loading}>
           {loading ? "Signing in..." : "Login"}
         </button>
+
+        {/* Green Back Link at Bottom */}
+        <div className="adminBackBottom">
+          <Link to="/" className="adminBackGreen">
+            ← Back to Home
+          </Link>
+        </div>
+
       </form>
     </div>
   );

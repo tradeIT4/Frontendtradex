@@ -1,0 +1,278 @@
+/* ================= PAGE ================= */
+
+.aspPage {
+  padding: 10px 5px 30px 5px;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= HEADER ================= */
+
+.aspHeader {
+  margin-bottom: 20px;
+}
+
+.aspHeader h1 {
+  font-size: 24px;
+  font-weight: 800;
+  margin-bottom: 4px;
+}
+
+.aspHeader p {
+  font-size: 14px;
+  opacity: 0.7;
+}
+
+/* ================= FILTERS ================= */
+
+.aspFilters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.aspFilters button {
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: 0.2s ease;
+}
+
+.aspFilters button:hover {
+  transform: translateY(-1px);
+  background: var(--panel2);
+}
+
+.aspFilters button.active {
+  background: var(--accent);
+  color: #111;
+  border-color: var(--accent);
+}
+
+/* ================= STATES ================= */
+
+.aspLoading,
+.aspEmpty {
+  padding: 30px;
+  text-align: center;
+  font-weight: 600;
+  opacity: 0.7;
+}
+
+/* ================= LIST ================= */
+
+.aspList {
+  display: grid;
+  gap: 16px;
+}
+
+/* ================= CARD ================= */
+
+.aspCard {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 18px;
+  transition: 0.2s ease;
+}
+
+.aspCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+}
+
+/* ================= CARD TOP ================= */
+
+.aspTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.aspTitle {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.aspMeta {
+  font-size: 12px;
+  opacity: 0.6;
+  margin-top: 4px;
+}
+
+/* ================= STATUS BADGE ================= */
+
+.aspBadge {
+  padding: 6px 12px;
+  border-radius: 30px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+
+.aspBadge.pending {
+  background: rgba(255, 193, 7, 0.15);
+  color: #f5c542;
+}
+
+.aspBadge.approved {
+  background: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+}
+
+.aspBadge.rejected {
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+}
+
+/* ================= DESCRIPTION ================= */
+
+.aspDesc {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.5;
+  opacity: 0.9;
+}
+
+/* ================= ACTIONS ================= */
+
+.aspActions {
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+
+.aspActions button,
+.aspModalActions button {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  border: none;
+  transition: 0.2s ease;
+}
+
+.ok {
+  background: rgba(40, 167, 69, 0.15);
+  color: #28a745;
+}
+
+.ok:hover {
+  background: #28a745;
+  color: #fff;
+}
+
+.bad {
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+}
+
+.bad:hover {
+  background: #dc3545;
+  color: #fff;
+}
+
+.wait {
+  background: rgba(255, 193, 7, 0.15);
+  color: #f5c542;
+}
+
+.wait:hover {
+  background: #f5c542;
+  color: #111;
+}
+
+.view {
+  background: var(--panel2);
+}
+
+/* ================= MODAL ================= */
+
+.aspModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.aspModal {
+  background: white;
+  max-width: 800px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  border-radius: 16px;
+  padding: 30px;
+  position: relative;
+  animation: fadeIn 0.3s ease;
+}
+
+.aspClose {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  background: none;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.aspModalMeta {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 15px;
+}
+
+.aspModalImage img {
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+.aspModalDesc {
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.aspModalContent {
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+.aspModalActions {
+  display: flex;
+  gap: 10px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+  .aspTop {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .aspActions {
+    flex-direction: column;
+  }
+
+  .aspActions button {
+    width: 100%;
+  }
+}

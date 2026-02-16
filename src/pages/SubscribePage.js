@@ -95,7 +95,9 @@ export default function SubscribePage() {
 
         <span className="formHint">
           Already a subscriber? <a href="/subscriber/login">Login</a>
+          
         </span>
+        
       </form>
     </div>
   );

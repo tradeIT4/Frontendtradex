@@ -1,7 +1,14 @@
 import { readAuth, logout } from "./auth";
 
-const API_BASE =
-  process.env.REACT_APP_API_URL || "http://localhost:5000";
+/* ================= ENV CONFIG ================= */
+
+const API_BASE = process.env.REACT_APP_API_URL;
+
+if (!API_BASE) {
+  throw new Error(
+    "❌ REACT_APP_API_URL is not defined. Please set it in your .env file."
+  );
+}
 
 /* ================= HANDLE RESPONSE ================= */
 
@@ -11,14 +18,17 @@ const handleResponse = async (res) => {
   try {
     data = await res.json();
   } catch {
-    // response is not JSON
+    // ignore if response is not JSON
+  }
+
+  // Auto logout on 401 or 403
+  if (res.status === 401 || res.status === 403) {
+    logout?.();
+    window.location.href = "/admin/login";
+    throw new Error("Session expired. Please login again.");
   }
 
   if (!res.ok) {
-    if (res.status === 401) {
-      logout?.(); // auto logout if unauthorized
-    }
-
     throw new Error(data?.message || "Request failed");
   }
 
@@ -28,17 +38,18 @@ const handleResponse = async (res) => {
 /* ================= AUTH HEADERS ================= */
 
 const getAuthHeaders = (requireToken = false) => {
-  const auth = readAuth();
+  const auth = readAuth?.();
+  const token = auth?.token;
 
-  if (requireToken && !auth?.token) {
-    throw new Error("No token provided");
+  if (requireToken && !token) {
+    logout?.();
+    window.location.href = "/admin/login";
+    throw new Error("Authentication required");
   }
 
   return {
     "Content-Type": "application/json",
-    ...(auth?.token && {
-      Authorization: `Bearer ${auth.token}`,
-    }),
+    ...(token && { Authorization: `Bearer ${token}` }),
   };
 };
 
@@ -60,7 +71,6 @@ const request = async (
   }
 
   const res = await fetch(`${API_BASE}${path}`, options);
-
   return handleResponse(res);
 };
 
@@ -69,7 +79,7 @@ const request = async (
 export const apiPublicGet = (path) =>
   request("GET", path);
 
-/* ================= NORMAL (token optional) ================= */
+/* ================= NORMAL ================= */
 
 export const apiGet = (path) =>
   request("GET", path);

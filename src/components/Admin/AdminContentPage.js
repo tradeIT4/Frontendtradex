@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, useCallback } from "react";
 import {
   apiAdminDelete,
   apiAdminGet,
@@ -14,8 +14,13 @@ const TABS = [
   { key: "videos", label: "Videos" },
 ];
 
-/* ================= CATEGORY OPTIONS ================= */
+/* ================= LANGUAGES ================= */
+const LANGUAGES = [
+  { code: "en", label: "English" },
+  { code: "am", label: "Amharic" },
+];
 
+/* ================= CATEGORY OPTIONS ================= */
 const NEWS_CATEGORIES = [
   "Business",
   "Economy",
@@ -30,104 +35,99 @@ const COMPANY_CATEGORIES = [
   "Press Release",
 ];
 
-const VIDEO_CATEGORIES = [
-  "Videos",
-  "Live",
-  "Programs",
-];
+/* ================= EMPTY FORM FACTORY ================= */
+const getEmptyForm = (tab) => {
+  const base = {
+    title: "",
+    image: "",
+    language: "en",
+    published: true,
+  };
 
-/* ================= EMPTY FORM ================= */
-
-const emptyFormByTab = (tab) => {
   if (tab === "videos") {
     return {
-      title: "",
-      category: VIDEO_CATEGORIES[0],
-      image: "",
+      ...base,
       youtubeUrl: "",
-      published: true,
     };
   }
 
-  if (tab === "company-posts") {
-    return {
-      title: "",
-      category: COMPANY_CATEGORIES[0],
-      description: "",
-      image: "",
-      author: "TradeX Team",
-      date: "",
-      content: "",
-      published: true,
-    };
-  }
+  const isCompany = tab === "company-posts";
 
   return {
-    title: "",
-    category: NEWS_CATEGORIES[0],
+    ...base,
+    category: isCompany
+      ? COMPANY_CATEGORIES[0]
+      : NEWS_CATEGORIES[0],
     description: "",
-    image: "",
-    author: "TradeX Desk",
+    author: isCompany ? "TradeX Team" : "TradeX Desk",
     date: "",
     content: "",
-    published: true,
   };
 };
 
 export default function AdminContentPage() {
   const [tab, setTab] = useState("news");
   const [items, setItems] = useState([]);
-  const [form, setForm] = useState(emptyFormByTab("news"));
+  const [form, setForm] = useState(getEmptyForm("news"));
   const [editingId, setEditingId] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [deleteId, setDeleteId] = useState(null);
 
-  /* ================= CATEGORY BASED ON TAB ================= */
+  const endpoint = useMemo(
+    () => `/api/admin/content/${tab}`,
+    [tab]
+  );
+
   const categoryOptions = useMemo(() => {
-    if (tab === "videos") return VIDEO_CATEGORIES;
-    if (tab === "company-posts") return COMPANY_CATEGORIES;
-    return NEWS_CATEGORIES;
+    return tab === "company-posts"
+      ? COMPANY_CATEGORIES
+      : NEWS_CATEGORIES;
   }, [tab]);
 
-  /* ================= ENDPOINT ================= */
-  const endpoint = useMemo(() => `/api/admin/content/${tab}`, [tab]);
-
-  /* ================= LOAD ITEMS ================= */
-  const load = async () => {
+  /* ================= LOAD DATA ================= */
+  const load = useCallback(async () => {
     setLoading(true);
     try {
       const data = await apiAdminGet(endpoint);
       setItems(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error(err);
-      alert(err.message || "Failed to load content");
+      alert("Failed to load content");
     } finally {
       setLoading(false);
     }
-  };
+  }, [endpoint]);
 
   useEffect(() => {
-    setForm(emptyFormByTab(tab));
+    setForm(getEmptyForm(tab));
     setEditingId(null);
     load();
-    // eslint-disable-next-line
-  }, [tab]);
+  }, [tab, load]);
 
-  const onChange = (key, value) => {
+  /* ================= FORM HELPERS ================= */
+  const onChange = useCallback((key, value) => {
     setForm((prev) => ({ ...prev, [key]: value }));
+  }, []);
+
+  const resetForm = () => {
+    setEditingId(null);
+    setForm(getEmptyForm(tab));
   };
 
-  const reset = () => {
-    setEditingId(null);
-    setForm(emptyFormByTab(tab));
+  const openCreateModal = () => {
+    resetForm();
+    setShowFormModal(true);
   };
 
   const startEdit = (item) => {
     setEditingId(item._id);
     setForm({
       ...item,
+      language: item.language || "en",
       published: item.published ?? true,
     });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setShowFormModal(true);
   };
 
   /* ================= SUBMIT ================= */
@@ -137,42 +137,40 @@ export default function AdminContentPage() {
     try {
       if (editingId) {
         await apiAdminPut(`${endpoint}/${editingId}`, form);
-        alert("Updated successfully");
       } else {
         await apiAdminPost(endpoint, form);
-        alert("Published successfully");
       }
 
-      reset();
+      setShowFormModal(false);
+      resetForm();
       load();
-    } catch (error) {
-      console.error(error);
-      alert(error.message || "Submission failed");
+    } catch (err) {
+      console.error(err);
+      alert("Submission failed");
     }
   };
 
   /* ================= DELETE ================= */
-  const remove = async (id) => {
-    if (!window.confirm("Delete this item?")) return;
-
+  const confirmDelete = async () => {
     try {
-      await apiAdminDelete(`${endpoint}/${id}`);
-      alert("Deleted successfully");
+      await apiAdminDelete(`${endpoint}/${deleteId}`);
+      setDeleteId(null);
       load();
-    } catch (error) {
-      console.error(error);
-      alert(error.message || "Delete failed");
+    } catch (err) {
+      console.error(err);
+      alert("Delete failed");
     }
   };
 
+  /* ================= RENDER ================= */
   return (
     <div className="cmsPage">
       <div className="cmsHeader">
         <h1>Content Manager</h1>
-        <p>Add / edit / publish content that appears on the Home page.</p>
+        <p>Add / edit / publish content for TradeX</p>
       </div>
 
-      {/* ================= TABS ================= */}
+      {/* TABS */}
       <div className="cmsTabs">
         {TABS.map((t) => (
           <button
@@ -185,132 +183,18 @@ export default function AdminContentPage() {
         ))}
       </div>
 
-      {/* ================= FORM ================= */}
-      <form className="cmsForm" onSubmit={submit}>
-        <div className="cmsFormTop">
-          <h2>
-            {editingId ? "Edit" : "Create"}{" "}
-            {TABS.find((x) => x.key === tab)?.label}
-          </h2>
+      {/* CREATE BUTTON */}
+      <div style={{ marginBottom: 20 }}>
+        <button className="btnPrimary" onClick={openCreateModal}>
+          + Create {TABS.find((x) => x.key === tab)?.label}
+        </button>
+      </div>
 
-          <div className="cmsFormActions">
-            {editingId && (
-              <button type="button" className="btnGhost" onClick={reset}>
-                Cancel
-              </button>
-            )}
-            <button type="submit" className="btnPrimary">
-              {editingId ? "Update" : "Publish"}
-            </button>
-          </div>
-        </div>
-
-        <div className="cmsGrid">
-          <label>
-            Title
-            <input
-              value={form.title || ""}
-              onChange={(e) => onChange("title", e.target.value)}
-              required
-            />
-          </label>
-
-          {/* ✅ CATEGORY DROPDOWN */}
-          <label>
-            Category
-            <select
-              value={form.category}
-              onChange={(e) => onChange("category", e.target.value)}
-              required
-            >
-              {categoryOptions.map((cat) => (
-                <option key={cat} value={cat}>
-                  {cat}
-                </option>
-              ))}
-            </select>
-          </label>
-
-          <label>
-            Image URL
-            <input
-              value={form.image || ""}
-              onChange={(e) => onChange("image", e.target.value)}
-              required
-            />
-          </label>
-
-          <label className="switchRow">
-            Published
-            <input
-              type="checkbox"
-              checked={!!form.published}
-              onChange={(e) => onChange("published", e.target.checked)}
-            />
-          </label>
-        </div>
-
-        {/* NON VIDEO FIELDS */}
-        {tab !== "videos" && (
-          <>
-            <div className="cmsGrid">
-              <label>
-                Description
-                <input
-                  value={form.description || ""}
-                  onChange={(e) => onChange("description", e.target.value)}
-                  required
-                />
-              </label>
-
-              <label>
-                Author
-                <input
-                  value={form.author || ""}
-                  onChange={(e) => onChange("author", e.target.value)}
-                />
-              </label>
-
-              <label>
-                Date
-                <input
-                  value={form.date || ""}
-                  onChange={(e) => onChange("date", e.target.value)}
-                  required
-                />
-              </label>
-            </div>
-
-            <label className="cmsTextarea">
-              Content
-              <textarea
-                rows={8}
-                value={form.content || ""}
-                onChange={(e) => onChange("content", e.target.value)}
-                required
-              />
-            </label>
-          </>
-        )}
-
-        {/* VIDEO FIELDS */}
-        {tab === "videos" && (
-          <label>
-            YouTube URL
-            <input
-              value={form.youtubeUrl || ""}
-              onChange={(e) => onChange("youtubeUrl", e.target.value)}
-              required
-            />
-          </label>
-        )}
-      </form>
-
-      {/* ================= LIST ================= */}
+      {/* LIST */}
       <div className="cmsList">
         <div className="cmsListHead">
           <h2>Existing</h2>
-          <span className="muted">
+          <span>
             {loading ? "Loading..." : `${items.length} items`}
           </span>
         </div>
@@ -319,43 +203,256 @@ export default function AdminContentPage() {
           <thead>
             <tr>
               <th>Title</th>
-              <th>Category</th>
+              <th>Language</th>
               <th>Published</th>
               <th>Created</th>
-              <th style={{ width: 200 }}>Actions</th>
+              <th>Actions</th>
             </tr>
           </thead>
+
           <tbody>
+            {!loading && items.length === 0 && (
+              <tr>
+                <td colSpan="5">No items yet.</td>
+              </tr>
+            )}
+
             {items.map((it) => (
               <tr key={it._id}>
                 <td>{it.title}</td>
-                <td>{it.category}</td>
-                <td>{it.published ? "Published" : "Hidden"}</td>
+                <td>{it.language || "en"}</td>
+                <td>
+                  {it.published ? "Published" : "Hidden"}
+                </td>
                 <td>
                   {it.createdAt
                     ? new Date(it.createdAt).toLocaleDateString()
                     : "-"}
                 </td>
                 <td>
-                  <button onClick={() => startEdit(it)}>Edit</button>
+                  <button onClick={() => startEdit(it)}>
+                    Edit
+                  </button>
                   <button
-                    onClick={() => remove(it._id)}
-                    style={{ color: "red" }}
+                    onClick={() => setDeleteId(it._id)}
+                    style={{
+                      color: "red",
+                      marginLeft: 10,
+                    }}
                   >
                     Delete
                   </button>
                 </td>
               </tr>
             ))}
-
-            {!loading && items.length === 0 && (
-              <tr>
-                <td colSpan="5">No items yet.</td>
-              </tr>
-            )}
           </tbody>
         </table>
       </div>
+
+      {/* FORM MODAL */}
+      {showFormModal && (
+        <div className="modalOverlay">
+          <div className="modalBox">
+            <div className="modalHeader">
+              <h2>
+                {editingId
+                  ? "Edit Content"
+                  : "Create Content"}
+              </h2>
+              <button
+                className="modalClose"
+                onClick={() => {
+                  setShowFormModal(false);
+                  resetForm();
+                }}
+              >
+                ×
+              </button>
+            </div>
+
+            <form className="cmsForm" onSubmit={submit}>
+              <div className="cmsGrid">
+                <label>
+                  Title
+                  <input
+                    value={form.title || ""}
+                    onChange={(e) =>
+                      onChange("title", e.target.value)
+                    }
+                    required
+                  />
+                </label>
+
+                <label>
+                  Language
+                  <select
+                    value={form.language}
+                    onChange={(e) =>
+                      onChange("language", e.target.value)
+                    }
+                  >
+                    {LANGUAGES.map((l) => (
+                      <option
+                        key={l.code}
+                        value={l.code}
+                      >
+                        {l.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+
+                {tab !== "videos" && (
+                  <label>
+                    Category
+                    <select
+                      value={form.category}
+                      onChange={(e) =>
+                        onChange(
+                          "category",
+                          e.target.value
+                        )
+                      }
+                    >
+                      {categoryOptions.map((cat) => (
+                        <option key={cat}>
+                          {cat}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                )}
+
+                <label>
+                  Thumbnail / Image URL
+                  <input
+                    value={form.image || ""}
+                    onChange={(e) =>
+                      onChange("image", e.target.value)
+                    }
+                  />
+                </label>
+
+                <label className="switchRow">
+                  Published
+                  <input
+                    type="checkbox"
+                    checked={!!form.published}
+                    onChange={(e) =>
+                      onChange(
+                        "published",
+                        e.target.checked
+                      )
+                    }
+                  />
+                </label>
+              </div>
+
+              {tab === "videos" && (
+                <label>
+                  Video URL
+                  <input
+                    value={form.youtubeUrl || ""}
+                    onChange={(e) =>
+                      onChange(
+                        "youtubeUrl",
+                        e.target.value
+                      )
+                    }
+                  />
+                </label>
+              )}
+
+              {tab !== "videos" && (
+                <>
+                  <label>
+                    Description
+                    <input
+                      value={form.description || ""}
+                      onChange={(e) =>
+                        onChange(
+                          "description",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    Author
+                    <input
+                      value={form.author || ""}
+                      onChange={(e) =>
+                        onChange(
+                          "author",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    Date
+                    <input
+                      type="date"
+                      value={form.date || ""}
+                      onChange={(e) =>
+                        onChange("date", e.target.value)
+                      }
+                    />
+                  </label>
+
+                  <label>
+                    Content
+                    <textarea
+                      rows={6}
+                      value={form.content || ""}
+                      onChange={(e) =>
+                        onChange(
+                          "content",
+                          e.target.value
+                        )
+                      }
+                    />
+                  </label>
+                </>
+              )}
+
+              <div style={{ marginTop: 20 }}>
+                <button
+                  className="btnPrimary"
+                  type="submit"
+                >
+                  {editingId ? "Update" : "Publish"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
+      {/* DELETE MODAL */}
+      {deleteId && (
+        <div className="modalOverlay">
+          <div className="modalBox small">
+            <h3>Delete this item?</h3>
+            <div style={{ marginTop: 20 }}>
+              <button
+                onClick={() => setDeleteId(null)}
+              >
+                Cancel
+              </button>
+              <button
+                className="btnDanger"
+                onClick={confirmDelete}
+                style={{ marginLeft: 10 }}
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -23,6 +23,11 @@ const navCategories = [
   "technology",
 ];
 
+/* ================= LANGUAGE MATCH HELPER ================= */
+const matchesLang = (value, lang) =>
+  (value || "en").toString().trim().toLowerCase() ===
+  lang.toString().trim().toLowerCase();
+
 export default function HomePage({ themeApi }) {
   const { language, t } = useLanguage();
 
@@ -86,26 +91,17 @@ export default function HomePage({ themeApi }) {
         ? newsArticles
         : newsArticles.filter(
             (n) =>
-              (n?.category || "")
-                .toLowerCase()
-                .trim() === normalizedCategory
+              (n?.category || "").toLowerCase().trim() === normalizedCategory
           );
 
-    return base.filter(
-      (n) => (n?.language || "en") === language
-    );
+    return base.filter((n) => matchesLang(n?.language, language));
   }, [newsArticles, activeCategory, language]);
 
   /* ================= FEATURED ================= */
-  const featured = useMemo(() => {
-    return filteredNews.slice(0, 3);
-  }, [filteredNews]);
+  const featured = useMemo(() => filteredNews.slice(0, 3), [filteredNews]);
 
   /* ================= PAGINATION ================= */
-  const totalPages = Math.max(
-    1,
-    Math.ceil(filteredNews.length / itemsPerPage)
-  );
+  const totalPages = Math.max(1, Math.ceil(filteredNews.length / itemsPerPage));
 
   const pagedNews = useMemo(() => {
     const start = (page - 1) * itemsPerPage;
@@ -121,28 +117,24 @@ export default function HomePage({ themeApi }) {
         ? newsArticles
         : newsArticles.filter(
             (n) =>
-              (n?.category || "")
-                .toLowerCase()
-                .trim() === normalizedCategory
+              (n?.category || "").toLowerCase().trim() === normalizedCategory
           );
 
     return base
-      .filter((n) => (n?.language || "en") === language)
+      .filter((n) => matchesLang(n?.language, language))
       .slice(0, 4);
   }, [newsArticles, sidebarCategory, language]);
 
-  /* ================= COMPANY ================= */
+  /* ================= COMPANY POSTS FILTERED ================= */
   const companyByLang = useMemo(() => {
-    return companyPosts.filter(
-      (p) => (p?.language || "en") === language
-    );
+    if (!companyPosts.length) return [];
+    return companyPosts.filter((p) => matchesLang(p?.language, language));
   }, [companyPosts, language]);
 
-  /* ================= VIDEOS ================= */
+  /* ================= VIDEOS FILTERED BY LANGUAGE ================= */
   const videosByLang = useMemo(() => {
-    return videos.filter(
-      (v) => (v?.language || "en") === language
-    );
+    if (!videos.length) return [];
+    return videos.filter((v) => (v?.language || "en") === language);
   }, [videos, language]);
 
   /* ================= UI ================= */
@@ -175,9 +167,7 @@ export default function HomePage({ themeApi }) {
               <div className="pager">
                 <button
                   disabled={page === 1}
-                  onClick={() =>
-                    setPage((prev) => Math.max(1, prev - 1))
-                  }
+                  onClick={() => setPage((prev) => Math.max(1, prev - 1))}
                 >
                   ◀
                 </button>
@@ -189,9 +179,7 @@ export default function HomePage({ themeApi }) {
                 <button
                   disabled={page === totalPages}
                   onClick={() =>
-                    setPage((prev) =>
-                      Math.min(totalPages, prev + 1)
-                    )
+                    setPage((prev) => Math.min(totalPages, prev + 1))
                   }
                 >
                   ▶

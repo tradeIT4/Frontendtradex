@@ -892,6 +892,339 @@ html {
   .ptvBottomNavItem:hover {
     color: #fff;
   }
+}/* =========================================================
+   FULL WIDTH LAYOUT OVERRIDE (100% Screen Use)
+========================================================= */
+
+/* Remove max-width limits everywhere important */
+.ptvHeaderInner,
+.ptvHero,
+.ptvMain,
+.ptvFilterInner,
+.ptvFooterContainer {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding-left: 32px;
+  padding-right: 32px;
+}
+
+/* Make rows fully stretch */
+.ptvRow {
+  width: 100%;
+}
+
+/* Make rail use full width */
+.ptvRail {
+  width: 100%;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Improve edge spacing like Netflix */
+.ptvRowHeader {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+/* Optional: true edge-to-edge cards look */
+.ptvRail {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+/* Desktop large screens */
+@media (min-width: 1600px) {
+  .ptvHeaderInner,
+  .ptvHero,
+  .ptvMain,
+  .ptvFilterInner,
+  .ptvFooterContainer {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+}
+
+/* Mobile full stretch */
+@media (max-width: 768px) {
+  .ptvHeaderInner,
+  .ptvHero,
+  .ptvMain,
+  .ptvFilterInner,
+  .ptvFooterContainer {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+/* AUTO SLIDE POSTS */
+.ptvRail {
+  overflow: hidden;
+  position: relative;
+}
+
+.ptvRail {
+  display: flex;
+  gap: var(--ptv-rail-gap);
+  animation: ptvAutoSlide 25s linear infinite;
+}
+
+/* =========================================================
+   RAIL WITH ARROWS (DESKTOP)
+========================================================= */
+
+.ptvRailWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.ptvRail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  padding: 10px 40px; /* space for arrows */
+  -webkit-overflow-scrolling: touch;
+}
+
+.ptvRail::-webkit-scrollbar {
+  display: none;
+}
+
+.ptvRailItem {
+  flex: 0 0 auto;
+}
+
+/* ARROWS */
+.ptvArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(11,11,15,.85);
+  color: #fff;
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all .25s ease;
+  border: 1px solid rgba(255,255,255,.1);
+}
+
+.ptvArrow:hover {
+  background: var(--ptv-accent);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.ptvArrow.left {
+  left: 0;
+}
+
+.ptvArrow.right {
+  right: 0;
+}
+
+/* =========================================================
+   MOBILE BEHAVIOR
+========================================================= */
+
+@media (max-width: 768px) {
+
+  /* Hide arrows on mobile */
+  .ptvArrow {
+    display: none;
+  }
+
+  /* Allow normal touch swipe */
+  .ptvRail {
+    padding: 10px 0;
+  }
+}
+
+/* =========================================================
+   FINAL ARROW RAIL FIX (OVERRIDE ALL OLD .ptvRail RULES)
+========================================================= */
+
+.ptvRailWrapper{
+  position: relative;
+  width: 100%;
+}
+
+/* Make sure rail is scrollable (override any old rules) */
+.ptvRail.ptvRail--arrows{
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 16px !important;
+
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 10px 56px !important; /* space for arrows */
+  width: 100% !important;
+
+  animation: none !important;   /* kills your ptvAutoSlide */
+  transform: none !important;   /* kills any translateX */
+  scrollbar-width: none;
+}
+
+.ptvRail.ptvRail--arrows::-webkit-scrollbar{
+  display: none;
+}
+
+.ptvRailItem{
+  flex: 0 0 auto !important;
+}
+
+/* Arrows */
+.ptvArrow{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(11,11,15,.85);
+  color: #fff;
+
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+
+  z-index: 20;
+  display: grid;
+  place-items: center;
+
+  transition: transform .2s ease, background .2s ease, filter .2s ease;
+}
+
+.ptvArrow:hover{
+  background: var(--ptv-accent);
+  transform: translateY(-50%) scale(1.08);
+}
+
+.ptvArrow.left{ left: 6px; }
+.ptvArrow.right{ right: 6px; }
+/* =========================================================
+   FINAL CLEAN RAIL SYSTEM (Override Everything Above)
+========================================================= */
+
+/* Wrapper */
+.ptvRailWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Main rail */
+.ptvRail {
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  gap: 16px !important;
+
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 10px 60px !important; /* space for arrows */
+
+  animation: none !important;   /* remove auto slide */
+  transform: none !important;   /* stop sideways motion */
+
+  scrollbar-width: none;
+}
+
+/* Hide scrollbar (Chrome/Safari) */
+.ptvRail::-webkit-scrollbar {
+  display: none;
+}
+
+/* Items */
+.ptvRailItem {
+  flex: 0 0 auto !important;
+}
+
+/* =========================
+   ARROWS
+========================= */
+
+.ptvArrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(11,11,15,.85);
+  color: #fff;
+
+  font-size: 26px;
+  cursor: pointer;
+  z-index: 10;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: .2s ease;
+}
+
+.ptvArrow:hover {
+  background: var(--ptv-accent);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.ptvArrow.left { left: 10px; }
+.ptvArrow.right { right: 10px; }
+
+/* =========================
+   MOBILE FIX
+========================= */
+
+@media (max-width: 768px) {
+
+  .ptvArrow {
+    display: none;
+  }
+
+  .ptvRail {
+    padding: 10px 0 !important;
+  }
+}
+/* ===============================
+   STOP ALL AUTO SLIDING
+=============================== */
+
+.ptvRail {
+  animation: none !important;
+  transform: none !important;
+  scroll-behavior: smooth !important;
+}
+
+@keyframes ptvAutoSlide {
+  from { transform: none; }
+  to { transform: none; }
+}
+
+/* Mobile: no arrows, allow normal page up/down scrolling */
+@media (max-width: 768px){
+  .ptvArrow{ display: none; }
+  .ptvRail.ptvRail--arrows{
+    padding: 10px 0 !important;
+  }
 }
 
 /* =========================================
@@ -971,4 +1304,104 @@ mask-image: linear-gradient(90deg, transparent 0, #000 12px, #000 calc(100% - 12
 padding: 8px 11px;
 font-size: 12px;
 }
+}
+/* =========================================================
+   FINAL HARD STOP — DISABLE ALL HORIZONTAL MOVEMENT
+   (Place this at VERY END of file)
+========================================================= */
+
+/* Stop page sideways scroll */
+html, body {
+  overflow-x: hidden !important;
+}
+
+/* Kill ALL rail animations */
+.ptvRail {
+  animation: none !important;
+  transform: none !important;
+  transition: none !important;
+
+  overflow-x: hidden !important;
+  scroll-behavior: auto !important;
+  scroll-snap-type: none !important;
+
+  touch-action: auto !important;
+}
+/* =========================
+   DESKTOP 3 COLUMN GRID
+========================= */
+
+.ptvGridDesktop {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.ptvGridDesktop .ptvCard {
+  width: 100%;
+}
+
+
+/* Remove scroll snapping from children */
+.ptvRailItem,
+.ptvChip {
+  scroll-snap-align: none !important;
+}
+
+/* Disable auto slide keyframes completely */
+@keyframes ptvAutoSlide {
+  from { transform: none; }
+  to { transform: none; }
+}
+
+
+/* =========================================
+   DESKTOP: 3 VISIBLE CARDS
+========================================= */
+
+@media (min-width: 1024px) {
+
+  .ptvRail--desktop3 .ptvRailItem {
+    flex: 0 0 calc((100% - 32px) / 3);
+  }
+
+  .ptvRail--desktop3 .ptvCard {
+    width: 100%;
+  }
+}
+/* =========================================
+   MOBILE: 2 COLUMNS PER ROW (SWIPE)
+========================================= */
+
+@media (max-width: 768px) {
+
+  .ptvRail {
+    display: flex;
+    gap: 16px;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    touch-action: pan-x;
+
+    padding: 10px 0 !important;
+  }
+
+  .ptvRailItem {
+    flex: 0 0 calc((100% - 16px) / 2); /* 2 columns */
+    scroll-snap-align: start;
+  }
+
+  .ptvCard {
+    width: 100%;
+  }
+
+  /* Hide arrows on mobile */
+  .ptvArrow {
+    display: none !important;
+  }
+
 }

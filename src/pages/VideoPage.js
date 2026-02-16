@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { apiPublicGet } from "../services/api";
 import { useLanguage } from "../context/LanguageContext";
-import "../styles/video.css";
+import "../styles/videoPage.css";
 
 function getYouTubeEmbed(url) {
   if (!url) return null;
@@ -99,5 +99,5 @@ export default function VideoPage() {
         </p>
       )}
     </main>
-  );
-}
+  );    
+}    

@@ -24,48 +24,84 @@ export default function ProgramsTVPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [search, setSearch] = useState("");
 
-  const featured = useMemo(
-    () => tvVideos.find((v) => v.id === featuredTvId) || tvVideos[0],
-    []
-  );
+  /* =========================
+     FEATURED PROGRAM
+  ========================== */
+  const featured = useMemo(() => {
+    if (!tvVideos || tvVideos.length === 0) return null;
+    return (
+      tvVideos.find((v) => v.id === featuredTvId) ||
+      tvVideos[0]
+    );
+  }, [featuredTvId]);
 
+  /* =========================
+     FILTERED PROGRAMS
+  ========================== */
   const filtered = useMemo(() => {
+    if (!tvVideos) return [];
+
     const q = search.trim().toLowerCase();
 
     return tvVideos.filter((v) => {
       const matchesCategory =
-        activeCategory === "All" ? true : v.category === activeCategory;
+        activeCategory === "All" || v.category === activeCategory;
 
-      const matchesSearch = q
-        ? (
-            v.title +
-            " " +
-            v.category +
-            " " +
-            v.host +
-            " " +
-            v.venue
-          )
-            .toLowerCase()
-            .includes(q)
-        : true;
+      const searchableText = `
+        ${v.title || ""}
+        ${v.category || ""}
+        ${v.host || ""}
+        ${v.venue || ""}
+      `
+        .toLowerCase()
+        .trim();
+
+      const matchesSearch = q ? searchableText.includes(q) : true;
 
       return matchesCategory && matchesSearch;
     });
   }, [activeCategory, search]);
 
+  /* =========================
+     GROUP BY CATEGORY
+  ========================== */
   const grouped = useMemo(() => {
-    const byCat = new Map(programCategories.map((c) => [c, []]));
-    filtered.forEach((v) => {
-      if (!byCat.has(v.category)) byCat.set(v.category, []);
-      byCat.get(v.category).push(v);
+    const byCat = new Map();
+
+    programCategories.forEach((cat) => {
+      byCat.set(cat, []);
     });
+
+    filtered.forEach((video) => {
+      if (!byCat.has(video.category)) {
+        byCat.set(video.category, []);
+      }
+      byCat.get(video.category).push(video);
+    });
+
     return byCat;
   }, [filtered]);
 
+  /* =========================
+     SAFETY CHECK
+  ========================== */
+  if (!featured) {
+    return (
+      <div className="ptvPage">
+        <div className="ptvEmpty">
+          <div className="ptvEmptyTitle">No programs available</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="ptvPage">
-      <ProgramsHeader links={tvNavLinks} search={search} setSearch={setSearch} />
+      <ProgramsHeader
+        links={tvNavLinks}
+        search={search}
+        setSearch={setSearch}
+      />
 
       <CategoryFilterBar
         categories={programCategories}
@@ -73,7 +109,7 @@ export default function ProgramsTVPage() {
         setActive={setActiveCategory}
       />
 
-      {/* HERO */}
+      {/* ================= HERO ================= */}
       <section className="ptvHero">
         <div className="ptvHeroBg">
           <img
@@ -111,7 +147,9 @@ export default function ProgramsTVPage() {
 
             <button
               className="ptvBtnGhost"
-              onClick={() => setActiveCategory(featured.category)}
+              onClick={() =>
+                setActiveCategory(featured.category)
+              }
             >
               Filter this program
             </button>
@@ -119,17 +157,26 @@ export default function ProgramsTVPage() {
         </div>
       </section>
 
-      {/* MAIN */}
+      {/* ================= MAIN ================= */}
       <main className="ptvMain">
         {programCategories.map((cat) => {
           const items = grouped.get(cat) || [];
           if (items.length === 0) return null;
-          return <VideoRow key={cat} title={cat} videos={items} />;
+
+          return (
+            <VideoRow
+              key={cat}
+              title={cat}
+              videos={items}
+            />
+          );
         })}
 
         {filtered.length === 0 && (
           <div className="ptvEmpty">
-            <div className="ptvEmptyTitle">No programs found</div>
+            <div className="ptvEmptyTitle">
+              No programs found
+            </div>
             <div className="ptvEmptyHint">
               Try a different keyword or category.
             </div>
@@ -137,22 +184,26 @@ export default function ProgramsTVPage() {
         )}
       </main>
 
-      {/* PREMIUM FOOTER */}
+      {/* ================= FOOTER ================= */}
       <footer className="ptvFooter">
         <div className="ptvFooterContainer">
 
           {/* Brand */}
           <div className="ptvFooterCol">
-            <div className="ptvFooterBrand">TradeX TV</div>
+            <div className="ptvFooterBrand">
+              TradeX TV
+            </div>
             <p className="ptvFooterText">
-              Bringing business, education, and innovation programs
-              to viewers across Ethiopia and beyond.
+              Bringing business, education, and innovation
+              programs to viewers across Ethiopia and beyond.
             </p>
           </div>
 
           {/* Contact */}
           <div className="ptvFooterCol">
-            <div className="ptvFooterTitle">Contact</div>
+            <div className="ptvFooterTitle">
+              Contact
+            </div>
 
             <div className="ptvFooterItem">
               <FaMapMarkerAlt /> Ethiopia, Addis Ababa
@@ -169,24 +220,54 @@ export default function ProgramsTVPage() {
 
           {/* Social */}
           <div className="ptvFooterCol">
-            <div className="ptvFooterTitle">Follow Us</div>
+            <div className="ptvFooterTitle">
+              Follow Us
+            </div>
 
             <div className="ptvFooterSocial">
-              <a href="#" className="ptvSocialIcon"><FaGlobe /></a>
-              <a href="#" className="ptvSocialIcon"><FaFacebookF /></a>
-              <a href="#" className="ptvSocialIcon"><FaInstagram /></a>
-              <a href="#" className="ptvSocialIcon"><FaYoutube /></a>
-              <a href="#" className="ptvSocialIcon"><FaTelegramPlane /></a>
+              <a
+                href="#"
+                className="ptvSocialIcon"
+                aria-label="Website"
+              >
+                <FaGlobe />
+              </a>
+              <a
+                href="#"
+                className="ptvSocialIcon"
+                aria-label="Facebook"
+              >
+                <FaFacebookF />
+              </a>
+              <a
+                href="#"
+                className="ptvSocialIcon"
+                aria-label="Instagram"
+              >
+                <FaInstagram />
+              </a>
+              <a
+                href="#"
+                className="ptvSocialIcon"
+                aria-label="YouTube"
+              >
+                <FaYoutube />
+              </a>
+              <a
+                href="#"
+                className="ptvSocialIcon"
+                aria-label="Telegram"
+              >
+                <FaTelegramPlane />
+              </a>
             </div>
           </div>
-
         </div>
 
         <div className="ptvFooterBottom">
-          © 2026 TradeX TV. All rights reserved.
+          © {new Date().getFullYear()} TradeX TV. All rights reserved.
         </div>
       </footer>
-
     </div>
   );
 }

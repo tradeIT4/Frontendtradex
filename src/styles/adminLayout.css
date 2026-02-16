@@ -1,0 +1,121 @@
+.adminShell {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+.adminSide {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  border-right: 1px solid var(--border);
+  background: var(--panel);
+  padding: 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.adminBrand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 8px;
+  border-radius: 12px;
+  background: var(--panel2);
+}
+
+.adminLogo {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  background: var(--accent);
+  color: #111;
+}
+
+.adminBrandTitle {
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.adminBrandSub {
+  font-size: 12px;
+  opacity: 0.8;
+}
+
+.adminNav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.adminNav a {
+  text-decoration: none;
+  color: var(--text);
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: 0.15s ease;
+  font-weight: 600;
+}
+
+.adminNav a:hover {
+  background: var(--panel2);
+  border-color: var(--border);
+}
+
+.adminNav a.active {
+  background: var(--panel2);
+  border-color: var(--border);
+  box-shadow: 0 8px 18px rgba(0,0,0,0.15);
+}
+
+.adminSideBottom {
+  margin-top: auto;
+  display: grid;
+  gap: 10px;
+}
+
+.adminThemeBtn {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--panel2);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.adminLogoutBtn {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,0,0,0.25);
+  background: rgba(255,0,0,0.10);
+  color: #ff4d4d;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.adminMain {
+  padding: 18px;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .adminShell {
+    grid-template-columns: 1fr;
+  }
+  .adminSide {
+    position: relative;
+    height: auto;
+  }
+}

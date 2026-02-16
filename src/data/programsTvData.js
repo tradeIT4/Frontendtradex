@@ -48,7 +48,7 @@ export const tvVideos = [
     host: "Miki Tesfaye",
     description:
       "This episode breaks down liquidity conditions, rate expectations, and sector rotation signals. We cover the key drivers behind the week’s volatility and what to watch next.",
-    videoUrl: "https://youtu.be/WcWffmAzlPw?si=bSUHcU9Dx1Oq2oHj",
+    videoUrl: "https://youtu.be/v0uKLCZocjs?si=VhecL5_X-Zunh8HX",
     
   },
   {

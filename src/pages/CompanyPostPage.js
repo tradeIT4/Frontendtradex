@@ -1,24 +1,53 @@
-import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { useLanguage } from "../context/LanguageContext";
-import { companyPosts } from "../data/mockData";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { apiPublicGet } from "../services/api";
 import "../styles/article.css";
 
 export default function CompanyPostPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { language, t } = useLanguage();
 
-  const post = companyPosts.find(
-    (p) => p.id === id && (p.language || "en") === language
-  );
+  const [post, setPost] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  if (!post) {
+  useEffect(() => {
+    const run = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        if (!id || id === "undefined") {
+          setError("Invalid post ID");
+          return;
+        }
+
+        const data = await apiPublicGet(`/api/public/company-posts/${id}`);
+        setPost(data);
+      } catch (e) {
+        setError(e.message || "Post not found");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    run();
+  }, [id]);
+
+  if (loading) {
     return (
       <main className="articlePage">
-        <p className="articleError">Post not found.</p>
+        <p className="articleLoading">Loading post...</p>
+      </main>
+    );
+  }
+
+  if (error || !post) {
+    return (
+      <main className="articlePage">
+        <p className="articleError">{error || "Post not found"}</p>
         <button className="articleBack" onClick={() => navigate("/")}>
-          ← {t("back")}
+          ← Back
         </button>
       </main>
     );
@@ -27,7 +56,7 @@ export default function CompanyPostPage() {
   return (
     <main className="articlePage">
       <button className="articleBack" onClick={() => navigate(-1)}>
-        ← {t("back")}
+        ← Back
       </button>
 
       <h1 className="articleTitle">{post.title}</h1>

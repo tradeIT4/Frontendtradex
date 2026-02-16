@@ -11,29 +11,16 @@ export default function AdminSidebar() {
           Dashboard
         </NavLink>
 
-        <NavLink to="/admin/articles">
-          Articles
-        </NavLink>
-
-        <NavLink to="/admin/company">
-          Company Updates
-        </NavLink>
-
-        <NavLink to="/admin/videos">
-          Videos
-        </NavLink>
-
         <NavLink to="/admin/subscribers">
           Subscribers
         </NavLink>
 
-        <NavLink to="/admin/users">
-          Admin Users
-        </NavLink>
         <NavLink to="/admin/content">
-        Content Manager
+          Content Manager
         </NavLink>
-
+        <NavLink to="/admin/subscriber-posts" className="adminLink highlight">
+          Subscriber Posts Approval
+        </NavLink>
       </nav>
     </aside>
   );

@@ -23,22 +23,11 @@ export default function SubscriberLoginPage() {
         password,
       });
 
-      /**
-       * Save auth payload
-       * MUST include:
-       * - token
-       * - role
-       * - status (approved | pending | rejected)
-       */
       saveAuth(data);
 
-      /**
-       * 🔐 STRICT STATUS-BASED REDIRECT
-       */
       if (data.status === "approved") {
         navigate("/subscriber/dashboard", { replace: true });
       } else {
-        // pending, rejected, or undefined
         navigate("/subscriber/pending", { replace: true });
       }
     } catch (err) {
@@ -51,6 +40,10 @@ export default function SubscriberLoginPage() {
 
   return (
     <div className="subscriberPage">
+      
+      {/* 🔙 Back to Home */}
+      
+
       <form className="subscriberCard" onSubmit={submit}>
         <h1>Subscriber Login</h1>
         <p>Access your TradeX account</p>
@@ -79,6 +72,9 @@ export default function SubscriberLoginPage() {
 
         <span className="formHint">
           New subscriber? <Link to="/subscribe">Create account</Link>
+          <div className="backHome">
+        <Link to="/">← Back to Home</Link>
+      </div>
         </span>
       </form>
     </div>
