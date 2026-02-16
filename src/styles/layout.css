@@ -1,9 +1,61 @@
-/* ================= APP SHELL & PAGE ================= */
+/* =========================================================
+   DEFAULT LIGHT THEME (PURE WHITE)
+========================================================= */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f7fa;
+  --card: #ffffff;
+
+  --text: #101828;
+  --muted: #667085;
+
+  --border: rgba(16, 24, 40, 0.12);
+  --hover: rgba(16, 24, 40, 0.06);
+
+  --accent: #1f5eff;
+  --accent-soft: rgba(31, 94, 255, 0.12);
+}
+
+/* =========================================================
+   DARK THEME (OPT-IN ONLY)
+   <html data-theme="dark">
+========================================================= */
+:root[data-theme="dark"] {
+  --bg: #0b0f17;
+  --surface: #0f1624;
+  --surface-2: #0b1220;
+  --card: #101a2b;
+
+  --text: #e6e9ef;
+  --muted: #a3acc2;
+
+  --border: rgba(230, 233, 239, 0.12);
+  --hover: rgba(230, 233, 239, 0.06);
+
+  --accent: #6aa6ff;
+  --accent-soft: rgba(106, 166, 255, 0.12);
+}
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* =========================================================
+   APP SHELL & PAGE
+========================================================= */
 .appShell {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-    background: var(--bg);
+  background: var(--bg);
 }
 
 .page {
@@ -13,38 +65,104 @@
   padding: 18px 16px 0;
 }
 
-/* ================= 2-COLUMN LAYOUT ================= */
+/* =========================================================
+   2-COLUMN LAYOUT
+========================================================= */
 .contentGrid {
   display: grid;
-  grid-template-columns: 1fr 320px; /* main + sidebar */
+  grid-template-columns: 1fr 320px;
   gap: 24px;
   align-items: start;
   margin-top: 20px;
 }
 
 .contentMain {
-  min-width: 0; /* fixes overflow issues in flex/grid */
+  min-width: 0;
 }
 
 .contentSide {
-  /* default for desktop */
   position: sticky;
   top: 96px;
   height: fit-content;
 }
 
-/* STACKED LAYOUT FOR MOBILE */
+/* MOBILE STACK */
 @media (max-width: 1023px) {
   .contentGrid {
     grid-template-columns: 1fr;
   }
+
   .contentSide {
     position: static;
     margin-top: 22px;
   }
 }
 
-/* ================= PREMIUM ARROWS PAGER ================= */
+/* =========================================================
+   SHARED ATOMS
+========================================================= */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  font-weight: 900;
+  font-size: 12px;
+}
+
+.pill--soft {
+  background: var(--accent-soft);
+  border-color: transparent;
+  color: var(--accent);
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* =========================================================
+   BUTTONS
+========================================================= */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--card);
+  color: var(--text);
+  font-weight: 900;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.15s ease;
+}
+
+.btn:hover {
+  background: var(--hover);
+}
+
+/* Primary Button */
+.primaryBtn {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #ffffff;
+}
+
+.primaryBtn:hover {
+  opacity: 0.9;
+}
+
+.primaryBtn.full {
+  width: 100%;
+  margin-top: 6px;
+}
+
+/* =========================================================
+   PREMIUM ARROWS PAGER
+========================================================= */
 .pager {
   display: flex;
   align-items: center;
@@ -75,7 +193,9 @@
   color: var(--muted);
 }
 
-/* ================= PAGINATION ================= */
+/* =========================================================
+   PAGINATION
+========================================================= */
 .pagination {
   display: flex;
   justify-content: center;
@@ -103,7 +223,9 @@
   color: var(--muted);
 }
 
-/* ================= AUTH PAGES ================= */
+/* =========================================================
+   AUTH PAGES
+========================================================= */
 .authPage {
   display: flex;
   justify-content: center;
@@ -148,7 +270,7 @@
   padding: 12px;
   border-radius: 12px;
   border: 1px solid var(--border);
-  background: var(--surface);
+  background: var(--surface-2);
   color: var(--text);
   font-size: 14px;
 }
@@ -156,11 +278,6 @@
 .authForm input:focus {
   outline: none;
   border-color: var(--accent);
-}
-
-.primaryBtn.full {
-  width: 100%;
-  margin-top: 6px;
 }
 
 .authFooter {
@@ -178,7 +295,7 @@
 .authError {
   background: rgba(220, 38, 38, 0.12);
   border: 1px solid rgba(220, 38, 38, 0.25);
-  color: var(--text);
+  color: #b42318;
   padding: 10px 12px;
   border-radius: 12px;
   font-weight: 700;
