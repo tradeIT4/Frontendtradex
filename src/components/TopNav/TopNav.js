@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import ReactCountryFlag from "react-country-flag";
 import "./TopNav.css";
@@ -12,19 +12,39 @@ export default function TopNav({
   compact = false,
 }) {
   const navigate = useNavigate();
+  const location = useLocation();
   const { language, changeLanguage, t } = useLanguage();
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
 
-  const isDark = themeApi.theme === "dark";
+  const langRef = useRef(null);
 
+  const isDark = themeApi?.theme === "dark";
+
+  /* ================= CLOSE DROPDOWN ON OUTSIDE CLICK ================= */
+  useEffect(() => {
+    function handleClickOutside(e) {
+      if (langRef.current && !langRef.current.contains(e.target)) {
+        setLangOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  /* ================= CLOSE MOBILE MENU ON ROUTE CHANGE ================= */
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  /* ================= CATEGORY CLICK ================= */
   const handleCategoryClick = (cat) => {
     onCategoryChange?.(cat);
-    setMenuOpen(false);
     navigate(`/category/${cat}`);
   };
 
+  /* ================= LANGUAGE ================= */
   const handleLanguageChange = (lang) => {
     changeLanguage(lang);
     setLangOpen(false);
@@ -32,7 +52,7 @@ export default function TopNav({
 
   return (
     <header className="topNav">
-      {/* ───────────────── TOP ROW ───────────────── */}
+      {/* ================= TOP ROW ================= */}
       <div className="topNav__row topNav__row--top">
         {/* Logo */}
         <div className="brand" onClick={() => navigate("/")}>
@@ -40,23 +60,24 @@ export default function TopNav({
           <span className="brand__name">TradeX</span>
         </div>
 
-        {/* Right controls */}
         <div className="rightControls">
-          {/* Desktop auth */}
+          {/* Desktop Auth */}
           <div className="desktopOnly">
             <NavLink to="/signin" className="linkBtn">
               {t("signIn")}
             </NavLink>
+
             <NavLink to="/signup" className="linkBtn">
               {t("signUp")}
             </NavLink>
+
             <NavLink to="/subscribe" className="primaryBtn">
               {t("subscribe")}
             </NavLink>
           </div>
 
           {/* Language */}
-          <div className="langWrap">
+          <div className="langWrap" ref={langRef}>
             <button
               className="langBtn"
               onClick={() => setLangOpen((v) => !v)}
@@ -66,7 +87,8 @@ export default function TopNav({
                 svg
                 style={{ width: 20, height: 14, marginRight: 6 }}
               />
-              {language === "en" ? "English" : "አማርኛ"} ▼
+              {language === "en" ? "English" : "አማርኛ"}
+              <span className="caret">▼</span>
             </button>
 
             {langOpen && (
@@ -81,25 +103,25 @@ export default function TopNav({
             )}
           </div>
 
-          {/* Theme */}
+          {/* Theme Toggle */}
           <button
             className="themeBtn"
-            onClick={themeApi.toggleTheme}
+            onClick={() => themeApi?.toggleTheme?.()}
           >
             {isDark ? "☀" : "☾"}
           </button>
 
-          {/* Mobile menu */}
+          {/* Mobile Hamburger */}
           <button
             className="hamburger mobileOnly"
-            onClick={() => setMenuOpen(!menuOpen)}
+            onClick={() => setMenuOpen((v) => !v)}
           >
             ☰
           </button>
         </div>
       </div>
 
-      {/* ───────────────── DESKTOP NAV ───────────────── */}
+      {/* ================= DESKTOP NAV ================= */}
       <div className="topNav__row topNav__row--bottom desktopOnly">
         <nav className={`cats ${compact ? "cats--compact" : ""}`}>
           {categories.map((cat) => (
@@ -115,16 +137,17 @@ export default function TopNav({
             </NavLink>
           ))}
 
-          {/* 🎥 Video */}
+          {/* Programs / TV */}
           <NavLink to="/programs-tv" className="catItem navVideo">
-            {t("video")}
+            🎥 {t("video")}
           </NavLink>
         </nav>
       </div>
 
-      {/* ───────────────── MOBILE MENU ───────────────── */}
+      {/* ================= MOBILE MENU ================= */}
       {menuOpen && (
         <div className="mobileMenu">
+          {/* Categories */}
           <div className="mobileSection">
             {categories.map((cat) => (
               <button
@@ -140,27 +163,28 @@ export default function TopNav({
 
             <button
               className="mobileCat"
-              onClick={() => {
-                setMenuOpen(false);
-                navigate("/programs-tv");
-              }}
+              onClick={() => navigate("/programs-tv")}
             >
               🎥 {t("video")}
             </button>
           </div>
 
+          {/* Auth */}
           <div className="mobileSection">
             <NavLink to="/signin" className="mobileBtn">
               {t("signIn")}
             </NavLink>
+
             <NavLink to="/signup" className="mobileBtn">
               {t("signUp")}
             </NavLink>
+
             <NavLink to="/subscribe" className="mobileBtn primary">
               {t("subscribe")}
             </NavLink>
           </div>
 
+          {/* Language */}
           <div className="mobileSection">
             <button
               className="mobileBtn"
@@ -168,6 +192,7 @@ export default function TopNav({
             >
               🇬🇧 English
             </button>
+
             <button
               className="mobileBtn"
               onClick={() => handleLanguageChange("am")}
