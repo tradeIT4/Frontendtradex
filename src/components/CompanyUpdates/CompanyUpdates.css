@@ -1,3 +1,7 @@
+/* =========================================
+   SECTION
+========================================= */
+
 .companySection {
   margin: 44px 0 10px;
 }
@@ -17,37 +21,32 @@
 /* =========================================
    SCROLL WRAPPER
 ========================================= */
+
 .companyScrollWrapper {
   position: relative;
   width: 100%;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scroll-behavior: smooth;
-  -webkit-overflow-scrolling: touch; /* smooth iOS */
-}
-
-/* Hide scrollbar */
-.companyScrollWrapper::-webkit-scrollbar {
-  display: none;
-}
-.companyScrollWrapper {
-  scrollbar-width: none;
+  overflow: hidden; /* important for animation */
 }
 
 /* =========================================
    SCROLL TRACK
 ========================================= */
+
 .companyScrollTrack {
   display: flex;
   gap: 18px;
   width: max-content;
   padding-bottom: 6px;
+  will-change: transform;
 }
 
-/* Desktop auto-scroll */
+/* =========================================
+   AUTO LEFT ↔ RIGHT ANIMATION (DESKTOP)
+========================================= */
+
 @media (min-width: 1024px) {
   .companyScrollTrack {
-    animation: autoScroll 25s linear infinite;
+    animation: autoScrollLR 20s ease-in-out infinite alternate;
   }
 
   .companyScrollWrapper:hover .companyScrollTrack {
@@ -55,9 +54,19 @@
   }
 }
 
+@keyframes autoScrollLR {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
 /* =========================================
    CARD
 ========================================= */
+
 .companyCard {
   min-width: 300px;
   flex-shrink: 0;
@@ -66,12 +75,12 @@
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .companyCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.15);
 }
 
 .companyThumb {
@@ -112,20 +121,31 @@
 }
 
 /* =========================================
-   AUTO SCROLL ANIMATION
+   RESPONSIVE
 ========================================= */
-@keyframes autoScroll {
-  from {
-    transform: translateX(0);
+
+@media (max-width: 1023px) {
+  .companyScrollWrapper {
+    overflow-x: auto;
+    overflow-y: hidden;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
   }
-  to {
-    transform: translateX(-50%);
+
+  .companyScrollTrack {
+    animation: none; /* disable animation on mobile */
+  }
+
+  /* Hide scrollbar */
+  .companyScrollWrapper::-webkit-scrollbar {
+    display: none;
+  }
+
+  .companyScrollWrapper {
+    scrollbar-width: none;
   }
 }
 
-/* =========================================
-   RESPONSIVE
-========================================= */
 @media (max-width: 900px) {
   .companyCard {
     min-width: 250px;
