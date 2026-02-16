@@ -14,21 +14,50 @@
   line-height: 1.4;
 }
 
-/* Scroll Wrapper */
+/* =========================================
+   SCROLL WRAPPER
+========================================= */
 .companyScrollWrapper {
-  overflow: hidden;
   position: relative;
   width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* smooth iOS */
 }
 
-/* Scroll Track with flex */
+/* Hide scrollbar */
+.companyScrollWrapper::-webkit-scrollbar {
+  display: none;
+}
+.companyScrollWrapper {
+  scrollbar-width: none;
+}
+
+/* =========================================
+   SCROLL TRACK
+========================================= */
 .companyScrollTrack {
   display: flex;
   gap: 18px;
-  animation: scrollLeftToRight 20s linear infinite;
+  width: max-content;
+  padding-bottom: 6px;
 }
 
-/* Card styling */
+/* Desktop auto-scroll */
+@media (min-width: 1024px) {
+  .companyScrollTrack {
+    animation: autoScroll 25s linear infinite;
+  }
+
+  .companyScrollWrapper:hover .companyScrollTrack {
+    animation-play-state: paused;
+  }
+}
+
+/* =========================================
+   CARD
+========================================= */
 .companyCard {
   min-width: 300px;
   flex-shrink: 0;
@@ -37,12 +66,12 @@
   border-radius: 16px;
   overflow: hidden;
   cursor: pointer;
-  transition: transform 0.12s ease, box-shadow 0.12s ease;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
 .companyCard:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
 }
 
 .companyThumb {
@@ -54,7 +83,6 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 .companyBody {
@@ -83,17 +111,21 @@
   color: var(--muted);
 }
 
-/* Scroll animation */
-@keyframes scrollLeftToRight {
-  0% {
+/* =========================================
+   AUTO SCROLL ANIMATION
+========================================= */
+@keyframes autoScroll {
+  from {
     transform: translateX(0);
   }
-  100% {
+  to {
     transform: translateX(-50%);
   }
 }
 
-/* Responsive tweaks */
+/* =========================================
+   RESPONSIVE
+========================================= */
 @media (max-width: 900px) {
   .companyCard {
     min-width: 250px;
