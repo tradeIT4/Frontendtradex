@@ -1,4 +1,57 @@
-* {
+/* =========================================================
+   DESIGN TOKENS – DEFAULT LIGHT THEME
+========================================================= */
+:root {
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f5f7fa;
+  --card: #ffffff;
+
+  --text: #101828;
+  --muted: #667085;
+
+  --border: rgba(16, 24, 40, 0.12);
+  --hover: rgba(16, 24, 40, 0.06);
+
+  --accent: #1f5eff;
+  --accent-soft: rgba(31, 94, 255, 0.12);
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 18px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, 0.06);
+  --transition: 0.2s ease;
+}
+
+/* =========================================================
+   DARK THEME (OPT-IN)
+   <html data-theme="dark">
+========================================================= */
+:root[data-theme="dark"] {
+  --bg: #0b0f17;
+  --surface: #0f1624;
+  --surface-2: #0b1220;
+  --card: #101a2b;
+
+  --text: #e6e9ef;
+  --muted: #a3acc2;
+
+  --border: rgba(230, 233, 239, 0.12);
+  --hover: rgba(230, 233, 239, 0.06);
+
+  --accent: #6aa6ff;
+  --accent-soft: rgba(106, 166, 255, 0.12);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================================================
+   GLOBAL RESET
+========================================================= */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -6,17 +59,116 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial,
-    "Apple Color Emoji", "Segoe UI Emoji";
+  min-height: 100%;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+    Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
   background: var(--bg);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  transition: background var(--transition), color var(--transition);
+}
+
+/* =========================================================
+   MEDIA
+========================================================= */
+img,
+picture,
+video,
+canvas,
+svg {
+  display: block;
+  max-width: 100%;
 }
 
 img {
-  display: block;
+  height: auto;
 }
 
+/* =========================================================
+   TYPOGRAPHY RESET
+========================================================= */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  margin: 0;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
 button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+}
+
+button {
+  cursor: pointer;
+}
+
+input,
+textarea,
 select {
-  font-family: inherit;
+  outline: none;
+}
+
+/* Remove number input arrows */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* =========================================================
+   SELECTION
+========================================================= */
+::selection {
+  background: var(--accent-soft);
+}
+
+/* =========================================================
+   SCROLLBAR (SUBTLE MODERN)
+========================================================= */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
 }
