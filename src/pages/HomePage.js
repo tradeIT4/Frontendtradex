@@ -11,6 +11,7 @@ import CompanyUpdates from "../components/CompanyUpdates/CompanyUpdates";
 import VideoGrid from "../components/VideoGrid/VideoGrid";
 import Footer from "../components/Footer/Footer";
 
+
 import "../styles/layout.css";
 
 /* ================= NAV CATEGORIES ================= */
