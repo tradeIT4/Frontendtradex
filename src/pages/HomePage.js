@@ -1,4 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 import { apiPublicGet } from "../services/api";
 
@@ -30,6 +31,7 @@ const matchesLang = (value, lang) =>
   lang.toString().trim().toLowerCase();
 
 export default function HomePage({ themeApi }) {
+  const { category } = useParams();
   const { language, t } = useLanguage();
 
   /* ================= STATE ================= */
@@ -40,6 +42,19 @@ export default function HomePage({ themeApi }) {
   const [activeCategory, setActiveCategory] = useState("all");
   const [sidebarCategory, setSidebarCategory] = useState("all");
   const [page, setPage] = useState(1);
+
+  useEffect(() => {
+    const normalized = (category || "all")
+      .toString()
+      .trim()
+      .toLowerCase();
+    const nextCategory = navCategories.includes(normalized)
+      ? normalized
+      : "all";
+
+    setActiveCategory(nextCategory);
+    setSidebarCategory(nextCategory);
+  }, [category]);
 
   /* ================= FETCH DATA ================= */
   useEffect(() => {

@@ -266,7 +266,7 @@ export default function AdminContentPage() {
                   resetForm();
                 }}
               >
-                ×
+                X
               </button>
             </div>
 

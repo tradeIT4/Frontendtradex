@@ -56,6 +56,7 @@ export default function App() {
     <Routes>
       {/* ================= PUBLIC ================= */}
       <Route path="/" element={<HomePage themeApi={themeApi} />} />
+      <Route path="/category/:category" element={<HomePage themeApi={themeApi} />} />
       <Route path="/article/:id" element={<ArticlePage />} />
       <Route path="/company/:id" element={<CompanyPostPage />} />
       <Route path="/company-post/:id" element={<CompanyPostPage />} />
