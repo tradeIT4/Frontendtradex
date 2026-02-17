@@ -40,10 +40,6 @@ export default function SubscriberLoginPage() {
 
   return (
     <div className="subscriberPage">
-      
-      {/* 🔙 Back to Home */}
-      
-
       <form className="subscriberCard" onSubmit={submit}>
         <h1>Subscriber Login</h1>
         <p>Access your TradeX account</p>
@@ -72,10 +68,11 @@ export default function SubscriberLoginPage() {
 
         <span className="formHint">
           New subscriber? <Link to="/subscribe">Create account</Link>
-          <div className="backHome">
-        <Link to="/">← Back to Home</Link>
-      </div>
         </span>
+
+        <div className="backHome">
+          <Link to="/">Back to Home</Link>
+        </div>
       </form>
     </div>
   );

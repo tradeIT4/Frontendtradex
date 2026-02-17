@@ -73,7 +73,7 @@ export default function SubscribePage() {
 
         <input
           name="phone"
-          type="number"
+          type="tel"
           placeholder="Phone Number"
           value={form.phone}
           onChange={handleChange}

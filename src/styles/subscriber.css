@@ -4,6 +4,7 @@
 
 .subscriberPage {
   min-height: 100vh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   padding: 20px;
@@ -22,6 +23,11 @@
   padding: 28px;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
   text-align: center;
+}
+
+.subscriberCard,
+.subscriberCard * {
+  box-sizing: border-box;
 }
 
 .subscriberCard h1 {
@@ -47,6 +53,7 @@
   background: rgba(255, 255, 255, 0.04);
   color: var(--text);
   font-weight: 700;
+  font-size: 16px;
 }
 
 .subscriberCard input:focus {
@@ -58,6 +65,7 @@
 /* BUTTON */
 .subscriberCard button {
   width: 100%;
+  min-height: 46px;
   padding: 12px;
   border-radius: 14px;
   border: none;
@@ -162,7 +170,58 @@
 
 /* MOBILE */
 @media (max-width: 480px) {
+  .subscriberPage {
+    min-height: 100dvh;
+    place-items: center;
+    padding: max(14px, env(safe-area-inset-top)) 12px max(14px, env(safe-area-inset-bottom));
+    background:
+      radial-gradient(460px 220px at 50% -10%, rgba(24, 178, 107, 0.24), transparent 68%),
+      radial-gradient(360px 200px at 100% 100%, rgba(24, 178, 107, 0.12), transparent 75%);
+  }
+
   .subscriberCard {
-    padding: 22px;
+    width: min(100%, 360px);
+    border-radius: 16px;
+    padding: 20px 16px;
+    border-color: rgba(24, 178, 107, 0.28);
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.06) 0%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .subscriberCard h1 {
+    font-size: 21px;
+    margin-bottom: 8px;
+  }
+
+  .subscriberCard p {
+    font-size: 13px;
+    margin-bottom: 14px;
+  }
+
+  .subscriberCard input {
+    min-height: 44px;
+    padding: 11px 12px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+  }
+
+  .subscriberCard button {
+    min-height: 44px;
+    margin-top: 4px;
+    border-radius: 12px;
+  }
+
+  .formHint {
+    margin-top: 12px;
+    line-height: 1.4;
+  }
+
+  .backHome {
+    margin-top: 16px;
+    padding-top: 12px;
   }
 }
