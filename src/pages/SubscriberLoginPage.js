@@ -67,7 +67,7 @@ export default function SubscriberLoginPage() {
         </button>
 
         <span className="formHint">
-          New subscriber? <Link to="/subscribe">Create account</Link>
+          New subscriber? <Link to="/subscriber/register">Create account</Link>
         </span>
 
         <div className="backHome">

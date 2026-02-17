@@ -10,6 +10,7 @@ import VideoPage from "./pages/VideoPage";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import SubscribePage from "./pages/SubscribePage";
+import SubscriberRegisterPage from "./pages/SubscriberRegisterPage";
 import ProgramsTVPage from "./pages/ProgramsTVPage";
 import VideoPlayerPage from "./pages/VideoPlayerPage";
 import LiveTVPage from "./pages/LiveTVPage";
@@ -64,6 +65,8 @@ export default function App() {
       <Route path="/signin" element={<SignIn />} />
       <Route path="/signup" element={<SignUp />} />
       <Route path="/subscribe" element={<SubscribePage />} />
+      <Route path="/subscriber/register" element={<SubscriberRegisterPage />} />
+      <Route path="/subscriber-login" element={<SubscriberLoginPage />} />
       <Route path="/programs-tv" element={<ProgramsTVPage />} />
       <Route path="/programs-tv/watch/:id" element={<VideoPlayerPage />} />
       <Route path="/live" element={<LiveTVPage />} />

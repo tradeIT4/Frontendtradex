@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { apiPost } from "../services/api";
 import "../styles/subscriber.css";
 
@@ -94,10 +94,8 @@ export default function SubscribePage() {
         </button>
 
         <span className="formHint">
-          Already a subscriber? <a href="/subscriber/login">Login</a>
-          
+          Already a subscriber? <Link to="/subscriber/login">Login</Link>
         </span>
-        
       </form>
     </div>
   );

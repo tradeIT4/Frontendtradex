@@ -71,7 +71,7 @@ export default function TopNav({
               {t("signUp")}
             </NavLink>
 
-            <NavLink to="/subscribe" className="primaryBtn">
+            <NavLink to="/subscriber/register" className="primaryBtn">
               {t("subscribe")}
             </NavLink>
           </div>
@@ -179,7 +179,7 @@ export default function TopNav({
               {t("signUp")}
             </NavLink>
 
-            <NavLink to="/subscribe" className="mobileBtn primary">
+            <NavLink to="/subscriber/register" className="mobileBtn primary">
               {t("subscribe")}
             </NavLink>
           </div>

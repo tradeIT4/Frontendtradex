@@ -12,7 +12,7 @@ if (!API_BASE) {
 
 /* ================= HANDLE RESPONSE ================= */
 
-const handleResponse = async (res) => {
+const handleResponse = async (res, requireToken = false) => {
   let data = {};
 
   try {
@@ -21,8 +21,8 @@ const handleResponse = async (res) => {
     // ignore if response is not JSON
   }
 
-  // Auto logout on 401 or 403
-  if (res.status === 401 || res.status === 403) {
+  // Auto logout only for protected requests
+  if (requireToken && (res.status === 401 || res.status === 403)) {
     logout?.();
     window.location.href = "/admin/login";
     throw new Error("Session expired. Please login again.");
@@ -71,7 +71,7 @@ const request = async (
   }
 
   const res = await fetch(`${API_BASE}${path}`, options);
-  return handleResponse(res);
+  return handleResponse(res, requireToken);
 };
 
 /* ================= PUBLIC ================= */
