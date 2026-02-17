@@ -31,12 +31,11 @@ import AdminContentPage from "./components/Admin/AdminContentPage";
 import AdminRoute from "./components/Admin/AdminRoute";
 
 export default function App() {
+
   /* ================= THEME ================= */
-  const [theme, setTheme] = useState(
-    document.documentElement.getAttribute("data-theme") ||
-      localStorage.getItem("tradex_theme") ||
-      "dark"
-  );
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("tradex_theme") || "light"; // ✅ default is light
+  });
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -47,13 +46,13 @@ export default function App() {
     () => ({
       theme,
       toggleTheme: () =>
-        setTheme((t) => (t === "dark" ? "light" : "dark")),
+        setTheme((t) => (t === "light" ? "dark" : "light")),
     }),
     [theme]
   );
 
   return (
-   
+    <BrowserRouter>
       <Routes>
 
         {/* ================= PUBLIC ================= */}
@@ -104,6 +103,6 @@ export default function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
 
       </Routes>
-
+    </BrowserRouter>
   );
 }
