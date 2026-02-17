@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import "./styles/layout.css";
 
 /* ================= PUBLIC ================= */
@@ -31,11 +31,12 @@ import AdminContentPage from "./components/Admin/AdminContentPage";
 import AdminRoute from "./components/Admin/AdminRoute";
 
 export default function App() {
-
   /* ================= THEME ================= */
-  const [theme, setTheme] = useState(() => {
-    return localStorage.getItem("tradex_theme") || "light"; // ✅ default is light
-  });
+  const [theme, setTheme] = useState(
+    document.documentElement.getAttribute("data-theme") ||
+      localStorage.getItem("tradex_theme") ||
+      "light" // ✅ default is now light
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
@@ -46,63 +47,59 @@ export default function App() {
     () => ({
       theme,
       toggleTheme: () =>
-        setTheme((t) => (t === "light" ? "dark" : "light")),
+        setTheme((t) => (t === "dark" ? "light" : "dark")),
     }),
     [theme]
   );
 
   return (
-    <BrowserRouter>
-      <Routes>
+    <Routes>
+      {/* ================= PUBLIC ================= */}
+      <Route path="/" element={<HomePage themeApi={themeApi} />} />
+      <Route path="/article/:id" element={<ArticlePage />} />
+      <Route path="/company/:id" element={<CompanyPostPage />} />
+      <Route path="/company-post/:id" element={<CompanyPostPage />} />
+      <Route path="/video/:id" element={<VideoPage />} />
+      <Route path="/signin" element={<SignIn />} />
+      <Route path="/signup" element={<SignUp />} />
+      <Route path="/subscribe" element={<SubscribePage />} />
+      <Route path="/programs-tv" element={<ProgramsTVPage />} />
+      <Route path="/programs-tv/watch/:id" element={<VideoPlayerPage />} />
+      <Route path="/live" element={<LiveTVPage />} />
+      <Route path="/about" element={<AboutPage />} />
 
-        {/* ================= PUBLIC ================= */}
-        <Route path="/" element={<HomePage themeApi={themeApi} />} />
-        <Route path="/article/:id" element={<ArticlePage />} />
-        <Route path="/company/:id" element={<CompanyPostPage />} />
-        <Route path="/company-post/:id" element={<CompanyPostPage />} />
-        <Route path="/video/:id" element={<VideoPage />} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/subscribe" element={<SubscribePage />} />
-        <Route path="/programs-tv" element={<ProgramsTVPage />} />
-        <Route path="/programs-tv/watch/:id" element={<VideoPlayerPage />} />
-        <Route path="/live" element={<LiveTVPage />} />
-        <Route path="/about" element={<AboutPage />} />
+      {/* ================= SUBSCRIBER ================= */}
+      <Route path="/subscriber/login" element={<SubscriberLoginPage />} />
+      <Route path="/subscriber/pending" element={<SubscriberPendingPage />} />
 
-        {/* ================= SUBSCRIBER ================= */}
-        <Route path="/subscriber/login" element={<SubscriberLoginPage />} />
-        <Route path="/subscriber/pending" element={<SubscriberPendingPage />} />
+      <Route
+        path="/subscriber/dashboard"
+        element={
+          <SubscriberRoute>
+            <SubscriberDashboard />
+          </SubscriberRoute>
+        }
+      />
 
-        <Route
-          path="/subscriber/dashboard"
-          element={
-            <SubscriberRoute>
-              <SubscriberDashboard />
-            </SubscriberRoute>
-          }
-        />
+      {/* ================= ADMIN ================= */}
+      <Route path="/admin/login" element={<AdminLoginPage />} />
 
-        {/* ================= ADMIN ================= */}
-        <Route path="/admin/login" element={<AdminLoginPage />} />
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminLayout themeApi={themeApi} />
+          </AdminRoute>
+        }
+      >
+        <Route index element={<AdminDashboardHome />} />
+        <Route path="subscribers" element={<AdminSubscribersPage />} />
+        <Route path="subscriber-posts" element={<AdminSubscriberPostsPage />} />
+        <Route path="content" element={<AdminContentPage />} />
+      </Route>
 
-        <Route
-          path="/admin"
-          element={
-            <AdminRoute>
-              <AdminLayout themeApi={themeApi} />
-            </AdminRoute>
-          }
-        >
-          <Route index element={<AdminDashboardHome />} />
-          <Route path="subscribers" element={<AdminSubscribersPage />} />
-          <Route path="subscriber-posts" element={<AdminSubscriberPostsPage />} />
-          <Route path="content" element={<AdminContentPage />} />
-        </Route>
-
-        {/* ================= FALLBACK ================= */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-
-      </Routes>
-    </BrowserRouter>
+      {/* ================= FALLBACK ================= */}
+      <Route path="*" element={<Navigate to="/" replace />} />
+    </Routes>
   );
 }
