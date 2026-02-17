@@ -3,13 +3,14 @@
 .footer {
   background-color: #000;
   color: #fff;
-  padding: 24px 16px;
+  padding: 40px 20px 28px;
   font-family: Arial, sans-serif;
 }
 
 .footerInner {
   max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* ================= TOP SECTION ================= */
@@ -18,69 +19,69 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 24px;
-  margin-bottom: 16px;
+  gap: 60px;
+  margin-bottom: 28px;
 }
 
 /* ================= CONTACT ================= */
 
 .footerContact {
   flex: 1;
-  min-width: 220px;
 }
 
 .footerContact h4 {
-  margin: 0 0 8px;
-  font-size: 15px;
+  margin-bottom: 12px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffd700;
 }
 
 .footerContact p {
-  margin: 4px 0;
-  font-size: 13px;
-  line-height: 1.5;
+  margin: 8px 0;
+  font-size: 14px;
+  line-height: 1.6;
 }
 
 .footerContact a {
   color: #fff;
   text-decoration: none;
+  transition: 0.2s ease;
 }
 
 .footerContact a:hover {
   color: #ffd700;
-  text-decoration: underline;
 }
 
 /* ================= SOCIAL ================= */
 
 .footerSocial {
   flex: 1;
-  min-width: 220px;
 }
 
 .footerSocial h4 {
-  margin: 0 0 8px;
-  font-size: 15px;
+  margin-bottom: 12px;
+  font-size: 18px;
   font-weight: 700;
   color: #ffd700;
 }
 
 .socialIcons {
   display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
+  gap: 22px;
 }
 
 .socialIcons a {
   color: #fff;
-  font-size: 20px;
-  transition: color 0.2s ease, transform 0.2s ease;
+  font-size: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.25s ease;
 }
 
 .socialIcons a:hover {
   color: #ffd700;
-  transform: scale(1.1);
+  transform: translateY(-4px);
 }
 
 /* ================= BOTTOM ================= */
@@ -88,24 +89,31 @@
 .footerBottom {
   text-align: center;
   border-top: 1px solid #222;
-  margin-top: 14px;
-  padding-top: 12px;
-  font-size: 12px;
+  padding-top: 18px;
+  font-size: 13px;
   color: #aaa;
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1024px) {
+  .footerTop {
+    gap: 40px;
+  }
 }
 
 /* ================= MOBILE ================= */
 
 @media (max-width: 768px) {
   .footer {
-    padding: 20px 16px;
+    padding: 32px 16px;
   }
 
   .footerTop {
     flex-direction: column;
     align-items: center;
     text-align: center;
-    gap: 20px;
+    gap: 36px;
   }
 
   .footerContact,
@@ -115,5 +123,30 @@
 
   .socialIcons {
     justify-content: center;
+  }
+}
+
+/* ================= SMALL MOBILE ================= */
+
+@media (max-width: 480px) {
+  .footer {
+    padding: 26px 14px;
+  }
+
+  .footerContact h4,
+  .footerSocial h4 {
+    font-size: 16px;
+  }
+
+  .footerContact p {
+    font-size: 13px;
+  }
+
+  .socialIcons a {
+    font-size: 22px;
+  }
+
+  .footerBottom {
+    font-size: 12px;
   }
 }
