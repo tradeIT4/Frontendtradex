@@ -28,8 +28,6 @@ export default function SubscribePage() {
 
     try {
       await apiPost("/api/subscribers/register", form);
-
-      // ✅ success → redirect to login
       navigate("/subscriber/login");
     } catch (err) {
       setError(err?.message || "Subscription failed");
