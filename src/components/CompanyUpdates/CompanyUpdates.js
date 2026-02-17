@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../../context/LanguageContext";
 import "./CompanyUpdates.css";
@@ -6,6 +6,31 @@ import "./CompanyUpdates.css";
 export default function CompanyUpdates({ items = [] }) {
   const navigate = useNavigate();
   const { t } = useLanguage();
+  const [isTouching, setIsTouching] = useState(false);
+  const resumeTimerRef = useRef(null);
+
+  const onTouchStart = () => {
+    if (resumeTimerRef.current) {
+      clearTimeout(resumeTimerRef.current);
+      resumeTimerRef.current = null;
+    }
+    setIsTouching(true);
+  };
+
+  const onTouchEnd = () => {
+    resumeTimerRef.current = setTimeout(() => {
+      setIsTouching(false);
+      resumeTimerRef.current = null;
+    }, 800);
+  };
+
+  useEffect(() => {
+    return () => {
+      if (resumeTimerRef.current) {
+        clearTimeout(resumeTimerRef.current);
+      }
+    };
+  }, []);
 
   if (!items.length) {
     return (
@@ -28,8 +53,15 @@ export default function CompanyUpdates({ items = [] }) {
         <p className="sectionSub">{t("companyUpdatesDesc")}</p>
       </div>
 
-      <div className="companyScrollWrapper">
-        <div className="companyScrollTrack">
+      <div
+        className="companyScrollWrapper"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+        onTouchCancel={onTouchEnd}
+      >
+        <div
+          className={`companyScrollTrack ${isTouching ? "isTouching" : ""}`}
+        >
           {scrollItems.map((p, idx) => (
             <article
               key={`${p._id}-${idx}`}

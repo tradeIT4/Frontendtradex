@@ -40,7 +40,6 @@ export default function HomePage({ themeApi }) {
   const [videos, setVideos] = useState([]);
 
   const [activeCategory, setActiveCategory] = useState("all");
-  const [sidebarCategory, setSidebarCategory] = useState("all");
   const [page, setPage] = useState(1);
 
   useEffect(() => {
@@ -53,7 +52,6 @@ export default function HomePage({ themeApi }) {
       : "all";
 
     setActiveCategory(nextCategory);
-    setSidebarCategory(nextCategory);
   }, [category]);
 
   /* ================= FETCH DATA ================= */
@@ -126,7 +124,7 @@ export default function HomePage({ themeApi }) {
 
   /* ================= SIDEBAR ================= */
   const sidebarStories = useMemo(() => {
-    const normalizedCategory = sidebarCategory.toLowerCase();
+    const normalizedCategory = activeCategory.toLowerCase();
 
     const base =
       normalizedCategory === "all"
@@ -139,7 +137,7 @@ export default function HomePage({ themeApi }) {
     return base
       .filter((n) => matchesLang(n?.language, language))
       .slice(0, 4);
-  }, [newsArticles, sidebarCategory, language]);
+  }, [newsArticles, activeCategory, language]);
 
   /* ================= COMPANY POSTS FILTERED ================= */
   const companyByLang = useMemo(() => {
@@ -207,8 +205,8 @@ export default function HomePage({ themeApi }) {
           <aside className="contentSide">
             <Sidebar
               categories={navCategories}
-              value={sidebarCategory}
-              onChange={setSidebarCategory}
+              value={activeCategory}
+              onChange={setActiveCategory}
               stories={sidebarStories}
             />
           </aside>

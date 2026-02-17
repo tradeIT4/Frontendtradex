@@ -5,87 +5,115 @@ import "../../styles/programsTv.css";
 export default function VideoRow({ title, videos = [] }) {
   const railRef = useRef(null);
   const autoScrollRef = useRef(null);
+  const touchResumeRef = useRef(null);
+  const manualResumeRef = useRef(null);
+  const directionRef = useRef(1);
 
-  const [isMobile, setIsMobile] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+  const [hasOverflow, setHasOverflow] = useState(false);
+  const [isTouching, setIsTouching] = useState(false);
+  const [isManualPause, setIsManualPause] = useState(false);
 
-  /* =========================
-     Detect Screen
-  ========================== */
   useEffect(() => {
     const handleResize = () => {
       const width = window.innerWidth;
-      setIsMobile(width <= 768);
       setIsDesktop(width >= 1024);
+
+      const el = railRef.current;
+      if (el) {
+        setHasOverflow(el.scrollWidth > el.clientWidth + 4);
+      }
     };
 
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [videos.length]);
 
-  const showArrows = isDesktop && videos.length > 3;
-
-  /* =========================
-     AUTO SLIDE (Desktop Only If >3)
-  ========================== */
   useEffect(() => {
     const el = railRef.current;
-    if (!el || !showArrows) return;
+    if (!el) return;
+    setHasOverflow(el.scrollWidth > el.clientWidth + 4);
+  }, [videos.length, isDesktop]);
 
-    const startAutoScroll = () => {
-      autoScrollRef.current = setInterval(() => {
-        if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 5) {
-          el.scrollTo({ left: 0, behavior: "smooth" });
-        } else {
-          el.scrollBy({
-            left: el.clientWidth,
-            behavior: "smooth",
-          });
-        }
-      }, 5000); // every 5 seconds
-    };
+  const autoPaused = isTouching || isManualPause;
+  const showArrows = isDesktop && hasOverflow;
 
-    const stopAutoScroll = () => {
+  useEffect(() => {
+    const el = railRef.current;
+    if (!el || !showArrows || autoPaused) return;
+
+    autoScrollRef.current = setInterval(() => {
+      const maxScroll = Math.max(0, el.scrollWidth - el.clientWidth);
+      if (maxScroll <= 0) return;
+
+      if (el.scrollLeft <= 0) directionRef.current = 1;
+      if (el.scrollLeft >= maxScroll) directionRef.current = -1;
+
+      el.scrollLeft += directionRef.current;
+    }, 24);
+
+    return () => {
       if (autoScrollRef.current) {
         clearInterval(autoScrollRef.current);
         autoScrollRef.current = null;
       }
     };
+  }, [showArrows, autoPaused]);
 
-    startAutoScroll();
-
-    el.addEventListener("mouseenter", stopAutoScroll);
-    el.addEventListener("mouseleave", startAutoScroll);
-
+  useEffect(() => {
     return () => {
-      stopAutoScroll();
-      el.removeEventListener("mouseenter", stopAutoScroll);
-      el.removeEventListener("mouseleave", startAutoScroll);
+      if (autoScrollRef.current) clearInterval(autoScrollRef.current);
+      if (touchResumeRef.current) clearTimeout(touchResumeRef.current);
+      if (manualResumeRef.current) clearTimeout(manualResumeRef.current);
     };
-  }, [showArrows]);
+  }, []);
 
-  /* =========================
-     Scroll Functions
-  ========================== */
+  const pauseForManualInteraction = () => {
+    if (manualResumeRef.current) {
+      clearTimeout(manualResumeRef.current);
+      manualResumeRef.current = null;
+    }
+
+    setIsManualPause(true);
+
+    manualResumeRef.current = setTimeout(() => {
+      setIsManualPause(false);
+      manualResumeRef.current = null;
+    }, 1400);
+  };
+
+  const onTouchStart = () => {
+    if (touchResumeRef.current) {
+      clearTimeout(touchResumeRef.current);
+      touchResumeRef.current = null;
+    }
+    setIsTouching(true);
+  };
+
+  const onTouchEnd = () => {
+    touchResumeRef.current = setTimeout(() => {
+      setIsTouching(false);
+      touchResumeRef.current = null;
+    }, 800);
+  };
+
   const scrollLeft = () => {
     const el = railRef.current;
     if (!el) return;
 
-    el.scrollBy({
-      left: -el.clientWidth,
-      behavior: "smooth",
-    });
+    pauseForManualInteraction();
+    el.scrollBy({ left: -el.clientWidth, behavior: "smooth" });
+    directionRef.current = -1;
   };
 
   const scrollRight = () => {
     const el = railRef.current;
     if (!el) return;
 
-    el.scrollBy({
-      left: el.clientWidth,
-      behavior: "smooth",
-    });
+    pauseForManualInteraction();
+    el.scrollBy({ left: el.clientWidth, behavior: "smooth" });
+    directionRef.current = 1;
   };
 
   return (
@@ -100,20 +128,12 @@ export default function VideoRow({ title, videos = [] }) {
       <div className="ptvRailWrapper">
         {showArrows && (
           <>
-            <button
-              className="ptvArrow left"
-              onClick={scrollLeft}
-              aria-label="Scroll Left"
-            >
-              ‹
+            <button className="ptvArrow left" onClick={scrollLeft} aria-label="Scroll Left">
+              {"<"}
             </button>
 
-            <button
-              className="ptvArrow right"
-              onClick={scrollRight}
-              aria-label="Scroll Right"
-            >
-              ›
+            <button className="ptvArrow right" onClick={scrollRight} aria-label="Scroll Right">
+              {">"}
             </button>
           </>
         )}
@@ -121,6 +141,9 @@ export default function VideoRow({ title, videos = [] }) {
         <div
           className="ptvRail ptvRail--desktop3"
           ref={railRef}
+          onTouchStart={onTouchStart}
+          onTouchEnd={onTouchEnd}
+          onTouchCancel={onTouchEnd}
         >
           {videos.map((v) => (
             <div key={v.id} className="ptvRailItem">

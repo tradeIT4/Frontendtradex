@@ -404,6 +404,65 @@ overflow-x: auto;
 padding-bottom: 10px;
 scroll-snap-type: x proximity;
 padding-left: 2px;
+scroll-behavior: smooth;
+touch-action: pan-x;
+}
+
+/* Auto move (desktop): left -> right and back */
+@media (min-width: 1024px){
+  .ptvRail--desktop3{
+    width: max-content;
+    animation: ptvAutoMoveLR 70s linear infinite alternate;
+    will-change: transform;
+  }
+
+  .ptvRailWrapper:hover .ptvRail--desktop3{
+    animation-play-state: paused;
+  }
+}
+
+@keyframes ptvAutoMoveLR{
+  0%{
+    transform: translateX(0);
+  }
+  100%{
+    transform: translateX(-35%);
+  }
+}
+
+.ptvRailWrapper{
+position: relative;
+}
+
+.ptvArrow{
+position: absolute;
+top: 50%;
+transform: translateY(-50%);
+width: 42px;
+height: 42px;
+border-radius: 999px;
+border: 1px solid rgba(255,255,255,.22);
+background: linear-gradient(145deg, rgba(20,20,24,.92), rgba(28,28,36,.92));
+color: #fff;
+font-size: 18px;
+font-weight: 900;
+display: grid;
+place-items: center;
+cursor: pointer;
+z-index: 3;
+box-shadow: 0 10px 22px rgba(0,0,0,.42);
+}
+
+.ptvArrow.left{
+left: 8px;
+}
+
+.ptvArrow.right{
+right: 8px;
+}
+
+.ptvArrow:hover{
+filter: brightness(1.12);
 }
 
 /* =========================================================
@@ -720,6 +779,16 @@ font-size: 12px;
 ========================================= */
 
 @media (max-width: 768px) {
+
+  .ptvArrow {
+    display: none;
+  }
+
+  .ptvRail--desktop3{
+    width: max-content;
+    animation: ptvAutoMoveLR 90s linear infinite alternate;
+    will-change: transform;
+  }
 
   .ptvRail {
     display: flex;

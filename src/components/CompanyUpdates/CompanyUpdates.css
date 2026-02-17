@@ -38,28 +38,27 @@
   width: max-content;
   padding-bottom: 6px;
   will-change: transform;
+  animation: companyMoveRight 80s linear infinite;
 }
 
 /* =========================================
    AUTO LEFT ↔ RIGHT ANIMATION (DESKTOP)
 ========================================= */
 
-@media (min-width: 1024px) {
-  .companyScrollTrack {
-    animation: autoScrollLR 30s linear infinite alternate;
-  }
-
-  .companyScrollWrapper:hover .companyScrollTrack {
-    animation-play-state: paused;
-  }
+.companyScrollTrack.isTouching {
+  animation-play-state: paused;
 }
 
-@keyframes autoScrollLR {
-  0% {
-    transform: translateX(0);
+.companyScrollWrapper:hover .companyScrollTrack {
+  animation-play-state: paused;
+}
+
+@keyframes companyMoveRight {
+  from {
+    transform: translateX(-50%);
   }
-  100% {
-    transform: translateX(calc(-100% + 100vw));
+  to {
+    transform: translateX(0);
   }
 }
 
@@ -166,11 +165,7 @@
     overflow-y: hidden;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
-  }
-
-  .companyScrollTrack {
-    animation: none; /* disable animation on mobile */
-    transform: none;
+    touch-action: pan-x;
   }
 
   /* Hide scrollbar */

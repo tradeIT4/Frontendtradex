@@ -27,8 +27,8 @@ export default function Sidebar({
       <ul className="sidebarList">
         {stories.slice(0, 4).map((s) => (
           <li
-            key={s.id}
-            onClick={() => navigate(`/article/${s.id}`)}
+            key={s._id || s.id}
+            onClick={() => navigate(`/article/${s._id || s.id}`)}
           >
             {s.title}
           </li>
