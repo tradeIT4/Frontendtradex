@@ -779,33 +779,78 @@ font-size: 12px;
 ========================================= */
 
 @media (max-width: 768px) {
+  :root { --ptv-header-h: 132px; }
+
+  .ptvHeaderInner {
+    padding: 10px 12px;
+    gap: 10px;
+  }
+
+  .ptvNav {
+    gap: 6px;
+    padding: 6px;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .ptvSearch {
+    padding: 10px 12px;
+    font-size: 14px;
+  }
+
+  .ptvHero {
+    padding: 12px 10px 6px;
+    gap: 12px;
+  }
+
+  .ptvHeroBg {
+    min-height: 210px;
+  }
+
+  .ptvHeroContent {
+    padding: 14px;
+  }
+
+  .ptvHeroTitle {
+    font-size: 22px;
+  }
+
+  .ptvMain {
+    padding: 6px 10px 24px;
+  }
+
+  .ptvRowHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+  }
 
   .ptvArrow {
     display: none;
   }
 
-  .ptvRail--desktop3{
-    width: max-content;
-    animation: ptvAutoMoveLR 90s linear infinite alternate;
-    will-change: transform;
+  .ptvRail--desktop3 {
+    width: auto;
+    animation: none;
+    transform: none;
   }
 
   .ptvRail {
-    display: flex;
-    gap: 16px;
+    gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
     touch-action: pan-x;
-    padding: 10px 0;
+    scroll-snap-type: x proximity;
+    padding: 8px 0 10px;
   }
 
   .ptvRailItem {
-    flex: 0 0 calc((100% - 16px) / 2);
+    flex: 0 0 min(82vw, 280px);
+    scroll-snap-align: start;
   }
 
   .ptvCard {
-    width: 100%;
+    width: 100% !important;
   }
-
 }
